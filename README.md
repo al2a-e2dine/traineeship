@@ -1,5 +1,5 @@
 Cahier des charges
-
+beg
 Produit demandé : Des fonctionnalités de dépôt d’offres et de candidatures Entre les entreprises et les étudiants.
 Relève du privilège et droit de modification : Une fois le site vendu les gérants de la start-up prendront la relève dans l’administration de la plateforme (toutes modifications, suppressions, mises à jour…etc).
 La partie des contacts : Les administrateurs peuvent ajouter, modifier, chercher et contacter les clients (étudiants) et les entreprises.
