@@ -1,7 +1,9 @@
 <?php
 include_once 'connect.php';
+session_start();
 
 if (isset($_POST['submit'])) {
+  $sexe=$_POST['sexe'];
   $firstname=$_POST['firstname'];
   $lastname=$_POST['lastname'];
   $n_cni=$_POST['n_cni'];
@@ -30,7 +32,7 @@ if (isset($_POST['submit'])) {
 
       if(mail($email,"Veuillez vérifier l'e-mail!",$message)){
 
-        $q="INSERT INTO `admin`(`firstname`, `lastname`, `n_cni`, `adr`, `phone`, `email`, `password`, `token`) VALUES ('$firstname', '$lastname', '$n_cni', '$adr', '$phone', '$email', '$password', '$token')";
+        $q="INSERT INTO `admin`(`sexe`, `firstname`, `lastname`, `n_cni`, `adr`, `phone`, `email`, `password`, `token`) VALUES ('$sexe','$firstname', '$lastname', '$n_cni', '$adr', '$phone', '$email', '$password', '$token')";
 
         $r=mysqli_query($dbc,$q);
 
@@ -145,9 +147,15 @@ if (isset($_POST['submit'])) {
               <div class="text-center">
                 <a class="small" href="login_admin.php">Vous avez déjà un compte? S'identifier!</a>
               </div>
+              <?php
+              if(isset($_SESSION['admin_id']) and $_SESSION['admin_id']==1){
+              ?>
               <div class="text-center">
                 <a class="small" href="gestion_admin.php">Gestion des administrateurs</a>
               </div>
+              <?php
+              }
+              ?>
               <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>
               </div>

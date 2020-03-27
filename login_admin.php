@@ -8,11 +8,15 @@ if (isset($_POST['submit'])) {
 
   $q="SELECT * FROM `admin` WHERE `email`='$email' and `password`='$password'";
   $r=mysqli_query($dbc,$q);
+
   $row=mysqli_fetch_assoc($r);
+  $admin_id=$row['id'];
 
   $num=mysqli_num_rows($r);
 
   if ($num==1) {
+    if ($row['isEmailConfirmed']==1) {
+      
     session_start();
     $_SESSION['admin_id']=$row['id'];
     $_SESSION['admin_firstname']=$row['firstname'];
@@ -23,7 +27,12 @@ if (isset($_POST['submit'])) {
     $_SESSION['admin_email']=$row['email'];
     $_SESSION['admin_password']=$row['password'];
     $_SESSION['admin_date']=$row['date'];
-    header('location:index.php');
+    header('location:profil_admin.php?id='.$admin_id);
+
+    }else{
+      $msg="L'email n'est pas activé";
+    }
+    
   }else{
     $msg="L'adresse E-mail ou mot de passe incorrect !";
   }

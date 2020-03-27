@@ -1,31 +1,62 @@
 <?php
 include_once 'connect.php';
 
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+  header('location:login_admin.php');
+}
+
 if (isset($_GET['id'])) {
 
     $id=$_GET['id'];
 
+    if($_SESSION['admin_id']==1 || $_SESSION['admin_id']==$id){
+
 if (isset($_POST['submit'])) {
-  
-  $password=$_POST['password'];
-  $cpassword=$_POST['cpassword'];
-  $admin_id=$_POST['admin_id'];
 
-      if ($password==$cpassword) {
-      $password=md5($password);
+$crr_password=$_POST['crr_password'];
+$crr_password=md5($crr_password);
 
-        $q="UPDATE `admin` SET `password`='$password' WHERE id='$admin_id'";
+$password=$_POST['password'];
+$cpassword=$_POST['cpassword'];
 
-        $r=mysqli_query($dbc,$q);
+$admin_id=$_POST['admin_id'];
 
-        $msg="Le mot de passe a été modifié avec succès!";
+$q0="SELECT * FROM `admin` WHERE id='$id'";
+$r0=mysqli_query($dbc,$q0);
+$num0=mysqli_num_rows($r0);
+
+if($num0==1){
+    $row0=mysqli_fetch_assoc($r0);
+    if($crr_password==$row0['password']){
+
+        if ($password==$cpassword) {
+            $password=md5($password);
+      
+              $q="UPDATE `admin` SET `password`='$password' WHERE id='$admin_id'";
+      
+              $r=mysqli_query($dbc,$q);
+      
+              $msg="Le mot de passe a été modifié avec succès!";
+      
+          }else{
+            $msg="Les deux mots de passe ne sont pas identiques !";
+          }
 
     }else{
-      $msg="Les deux mots de passe ne sont pas identiques !";
+        $msg="Le mot de passe actuel est incorrect";
     }
+}else{
+    header('location:index.php');
+}
+
+      
 }
 }else{
-    header('Location: forgot_admin_pass.php');
+  header('Location: index.php');
+}
+}else{
+    header('Location: index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -39,7 +70,7 @@ if (isset($_POST['submit'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Récupération de mot de passe</title>
+  <title>Modifier le mot de pass</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -74,8 +105,11 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
               </div>
-              <form class="user" action="update_admin_fgpass.php?id=<?= $id ?>" method="post">
-              
+              <form class="user" action="update_admin_pass.php?id=<?= $id ?>" method="post">
+                <div class="form-group">
+                  <!-- <label>Mot de passe actuel</label> -->
+                  <input type="password" class="form-control form-control-user" placeholder="Mot de passe actuel" name="crr_password" required>
+                </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <!-- <label>Mot de passe</label> -->
@@ -91,7 +125,7 @@ if (isset($_POST['submit'])) {
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="login_admin.php">Vous avez déjà un compte? S'identifier!</a>
+                <a class="small" href="profil_admin.php?id=<?= $id ?>">Retour au compte personnel</a>
               </div>
               <?php
               if(isset($_SESSION['admin_id']) and $_SESSION['admin_id']==1){
