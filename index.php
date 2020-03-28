@@ -12,10 +12,24 @@ echo "welcome";
 </head>
 <body>
     <br>
+    <a href="gestion_admin.php">Gestion des administrateurs</a>
+    <br>
     <a href="register_admin.php">register admin</a>
     <br>
-    <a href="login_admin.php">login_admin.php</a>
+    <a href="login_admin.php">login admin.php</a>
+    <hr>
+    <a href="#">Gestion des clients</a>
     <br>
+    <a href="#">register client</a>
+    <br>
+    <a href="#">login client</a>
+    <hr>
+    <a href="#">Gestion des entreprises</a>
+    <br>
+    <a href="#">register entreprise</a>
+    <br>
+    <a href="#">login entreprise</a>
+    <hr>
     <a href="logout.php">logout</a>
 </body>
 </html>
