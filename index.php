@@ -1,7 +1,7 @@
 <?php
 include_once 'connect.php';
 session_start();
-echo "welcome";
+echo "<h1>welcome</h1>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
