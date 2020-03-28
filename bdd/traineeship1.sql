@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 28 mars 2020 à 12:22
+-- Généré le : sam. 28 mars 2020 à 10:50
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.3
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
   `token` varchar(255) NOT NULL,
   `isEmailConfirmed` int(11) NOT NULL DEFAULT 0,
   `archived` int(11) NOT NULL DEFAULT 0,
-  `date` datetime NOT NULL DEFAULT current_timestamp()
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -49,8 +49,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `sexe`, `firstname`, `lastname`, `n_cni`, `adr`, `phone`, `email`, `password`, `token`, `isEmailConfirmed`, `archived`, `date`) VALUES
-(1, 'Homme', 'Belalia', 'Mohamed Alaa Eddine', 123456789, 'rue ould ben khadda mohamed', 697701228, 'mascaprod7@gmail.com', '68053af2923e00204c3ca7c6a3150cf7', 'ZvO$yYXJtL', 1, 0, '2020-03-27 00:00:00'),
-(6, 'Homme', 'mohamed', 'alaa eddine', 123, 'mascara', 123, 'belalia.alaaeddine@gmail.com', '202cb962ac59075b964b07152d234b70', ')67wdieL0U', 1, 1, '2020-03-27 00:00:00');
+(1, 'Homme', 'Belalia', 'Mohamed Alaa Eddine', 123456789, 'rue ould ben khadda mohamed', 697701228, 'mascaprod7@gmail.com', '68053af2923e00204c3ca7c6a3150cf7', 'ZvO$yYXJtL', 1, 0, '2020-03-27'),
+(6, 'Homme', 'mohamed', 'alaa eddine', 123, 'mascara', 123, 'belalia.alaaeddine@gmail.com', '202cb962ac59075b964b07152d234b70', ')67wdieL0U', 1, 1, '2020-03-27');
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE `client` (
   `token` varchar(255) NOT NULL,
   `isEmailConfirmed` int(11) DEFAULT 0,
   `archived` int(11) NOT NULL DEFAULT 0,
-  `date` datetime NOT NULL DEFAULT current_timestamp()
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -99,7 +99,7 @@ CREATE TABLE `entreprise` (
   `token` varchar(255) NOT NULL,
   `isEmailConfirmed` int(11) NOT NULL DEFAULT 0,
   `archived` int(11) NOT NULL DEFAULT 0,
-  `date` datetime NOT NULL DEFAULT current_timestamp()
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
