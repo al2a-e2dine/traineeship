@@ -101,7 +101,7 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
                   </div>
-                  <form class="user" action="login_admin.php" method="post">
+                  <form class="user" action="login_entreprise.php" method="post">
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user" placeholder="Adresse e-mail" name="email">
                     </div>
@@ -112,10 +112,10 @@ if (isset($_POST['submit'])) {
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="forgot_admin_pass.php">Mot de passe oublié?</a>
+                    <a class="small" href="forgot_entreprise_pass.php">Mot de passe oublié?</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="register_admin.php">Créer un compte!</a>
+                    <a class="small" href="register_entreprise.php">Créer un compte!</a>
                   </div>
                   <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>

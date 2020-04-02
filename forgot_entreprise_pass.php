@@ -4,7 +4,7 @@ include_once 'connect.php';
 if (isset($_POST['submit'])) {
   $email=$_POST['email'];
 
-  $q="SELECT * FROM `admin` WHERE `email`='$email' and `isEmailConfirmed`=1";
+  $q="SELECT * FROM `entreprise` WHERE `email`='$email' and `isEmailConfirmed`=1";
   $r=mysqli_query($dbc,$q);
   $num=mysqli_num_rows($r);
 
@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
 
     $message="
       Veuillez cliquer sur le lien ci-dessous:
-      http://localhost/traineeship/update_admin_fgpass.php?id=".$id;
+      http://localhost/traineeship/update_entreprise_fgpass.php?id=".$id;
 
       if(mail($email,"Réinitialiser le mot de passe!",$message)){
         
@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
                   </div>
-                  <form class="user" action="forgot_admin_pass.php" method="post">
+                  <form class="user" action="forgot_entreprise_pass.php" method="post">
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Adresse e-mail" name="email">
                     </div>
@@ -89,10 +89,10 @@ if (isset($_POST['submit'])) {
                   </form>
                   <hr>
                   <div class="text-center">
-                <a class="small" href="login_admin.php">Vous avez déjà un compte? S'identifier!</a>
+                <a class="small" href="login_entreprise.php">Vous avez déjà un compte? S'identifier!</a>
               </div>
                   <div class="text-center">
-                    <a class="small" href="register_admin.php">Créer un compte!</a>
+                    <a class="small" href="register_entreprise.php">Créer un compte!</a>
                   </div>
                   <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>
