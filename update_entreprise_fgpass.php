@@ -9,12 +9,12 @@ if (isset($_POST['submit'])) {
   
   $password=$_POST['password'];
   $cpassword=$_POST['cpassword'];
-  $admin_id=$_POST['admin_id'];
+  $entreprise_id=$_POST['entreprise_id'];
 
       if ($password==$cpassword) {
       $password=md5($password);
 
-        $q="UPDATE `admin` SET `password`='$password' WHERE id='$admin_id'";
+        $q="UPDATE `entreprise` SET `password`='$password' WHERE id='$entreprise_id'";
 
         $r=mysqli_query($dbc,$q);
 
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     }
 }
 }else{
-    header('Location: forgot_admin_pass.php');
+    header('Location: forgot_entreprise_pass.php');
 }
 ?>
 <!DOCTYPE html>
@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
               </div>
-              <form class="user" action="update_admin_fgpass.php?id=<?= $id ?>" method="post">
+              <form class="user" action="update_entreprise_fgpass.php?id=<?= $id ?>" method="post">
               
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
@@ -86,18 +86,18 @@ if (isset($_POST['submit'])) {
                     <input type="password" class="form-control form-control-user" placeholder="Répéter le mot de passe" name="cpassword" required>
                   </div>
                 </div>
-                <input type="hidden" name="admin_id" value="<?= $id ?>">
+                <input type="hidden" name="entreprise_id" value="<?= $id ?>">
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-success" value="Modifier">
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="login_admin.php">Vous avez déjà un compte? S'identifier!</a>
+                <a class="small" href="login_entreprise.php">Vous avez déjà un compte? S'identifier!</a>
               </div>
               <?php
-              if(isset($_SESSION['admin_id']) and $_SESSION['admin_id']==1){
+              if(isset($_SESSION['entreprise_id']) and $_SESSION['entreprise_id']==1){
               ?>
               <div class="text-center">
-                <a class="small" href="gestion_admin.php">Gestion des administrateurs</a>
+                <a class="small" href="gestion_entreprise.php">Gestion des entreprises</a>
               </div>
               <?php
               }

@@ -3,10 +3,10 @@ include_once 'connect.php';
 
 session_start();
 
-if (!isset($_SESSION['admin_id'])) {
-  header('location:login_admin.php');
+if (!isset($_SESSION['entreprise_id'])) {
+  header('location:login_entreprise.php');
 }else{
-    if($_SESSION['admin_id']!=1){
+    if($_SESSION['entreprise_id']!=1){
         header('location:index.php');    
         } 
 }
@@ -23,7 +23,7 @@ if (!isset($_SESSION['admin_id'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Gestion des administrateurs</title>
+  <title>Gestion des entreprises </title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -60,7 +60,7 @@ if (!isset($_SESSION['admin_id'])) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Gestion des administrateurs</h1>
+          <h1 class="h3 mb-2 text-gray-800">Gestion des entreprises</h1>
           <p class="mb-4">kach manektbou hna ...</p>
           <?php
                 if (isset($_GET['true'])) {
@@ -77,15 +77,15 @@ if (!isset($_SESSION['admin_id'])) {
                 <?php
                 }
                 ?>
-          <a href="register_admin.php">
-            <button type="button" class="btn btn-block btn-primary">Ajouter un administrateur</button>
+          <a href="register_entreprise.php">
+            <button type="button" class="btn btn-block btn-primary">Ajouter une entreprise</button>
           </a>
           <br>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold">Nos administrateurs</h6>
+              <h6 class="m-0 font-weight-bold">Les entreprises</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -103,22 +103,26 @@ if (!isset($_SESSION['admin_id'])) {
                   </thead>
                   <tbody>
                     <?php
-                    $q="SELECT * FROM `admin` WHERE archived=0";
+                    $q="SELECT * FROM `entreprise` WHERE archived=0";
                     $r=mysqli_query($dbc,$q);
                     while ($row=mysqli_fetch_assoc($r)) {
                     ?>
                     <tr>
                       <td><?= $row['id'] ?></td>
-                      <td><?= $row['firstname']." ".$row['lastname'] ?></td>
-                      <td><?= $row['sexe'] ?></td>
+                      <td><?= $row['n_serie']." ".$row['denomination'] ?></td>
+                      <td><?= $row['nom_dirigeant'] ?></td>
                       <td><?= $row['phone'] ?></td>
+                      <td><?= $row['siege_social'] ?></td>
+                      <td><?= $row['description'] ?></td>
+                      <td><?= $row['secteur_act'] ?></td>
+                      <td><?= $row['type'] ?></td>
                       <td>
-                        <a href="profil_admin.php?id=<?= $row['id'] ?>">
+                        <a href="profil_entreprise.php?id=<?= $row['id'] ?>">
                           <button type="button" class="btn btn-primary">Profil</button>
                         </a>
                       </td>
                       <td>
-                        <a href="update_admin.php?id=<?= $row['id'] ?>">
+                        <a href="update_entreprise.php?id=<?= $row['id'] ?>">
                           <button type="button" class="btn btn-success">Modifier</button>
                         </a>
                       </td>
@@ -135,10 +139,10 @@ if (!isset($_SESSION['admin_id'])) {
                                       <span aria-hidden="true">×</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">Voulez-vous vraiment supprimer ce employé ?</div>
+                                  <div class="modal-body">Voulez-vous vraiment supprimer cette entreprise ?</div>
                                   <div class="modal-footer">
                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Non</button>
-                                    <a class="btn btn-primary" href="delete_admin.php?id=<?= $row['id'] ?>">Oui</a>
+                                    <a class="btn btn-primary" href="delete_entreprise.php?id=<?= $row['id'] ?>">Oui</a>
                                   </div>
                                 </div>
                               </div>
