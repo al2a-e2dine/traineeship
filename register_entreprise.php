@@ -3,17 +3,21 @@ include_once 'connect.php';
 session_start();
 
 if (isset($_POST['submit'])) {
-  $sexe=$_POST['sexe'];
-  $firstname=$_POST['firstname'];
-  $lastname=$_POST['lastname'];
-  $n_cni=$_POST['n_cni'];
-  $adr=$_POST['adr'];
+
+
+  $type=$_POST['type'];
+  $n_serie=$_POST['n_serie'];
+  $denomination=$_POST['denomination'];
+  $nom_dirigeant=$_POST['nom_dirigeant'];
   $phone=$_POST['phone'];
+  $siege_social=$_POST['siege_social'];
+  $description=$_POST['description'];
+  $secteur_act=$_POST['secteur_act'];
   $email=$_POST['email'];
   $password=$_POST['password'];
   $cpassword=$_POST['cpassword'];
 
-  $q="SELECT * FROM `admin` WHERE `email`='$email'";
+  $q="SELECT * FROM `entreprise` WHERE `email`='$email'";
   $r=mysqli_query($dbc,$q);
   $num=mysqli_num_rows($r);
 
@@ -27,12 +31,12 @@ if (isset($_POST['submit'])) {
 
       $message="
       Veuillez cliquer sur le lien ci-dessous:
-      http://localhost/traineeship/confirm_admin.php?email=$email&token=$token
+      http://localhost/traineeship/confirm_entreprise.php?email=$email&token=$token
       ";
 
       if(mail($email,"Veuillez vérifier l'e-mail!",$message)){
 
-        $q="INSERT INTO `admin`(`sexe`, `firstname`, `lastname`, `n_cni`, `adr`, `phone`, `email`, `password`, `token`) VALUES ('$sexe','$firstname', '$lastname', '$n_cni', '$adr', '$phone', '$email', '$password', '$token')";
+        $q="INSERT INTO `entreprise`(`type`, `n_serie`,`denomination`,`nom_dirigeant`,`phone`,`siege_social`,`description`,`secteur_act`,`email`, `password`, `token`) VALUES ('$type','$n_serie', '$denomination', '$nom_dirigeant','$phone','$siege_social','$description','$secteur_act','$email', '$password', '$token')";
 
         $r=mysqli_query($dbc,$q);
 
@@ -85,7 +89,7 @@ if (isset($_POST['submit'])) {
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Ajouter un administrateur</h1>
+                <h1 class="h4 text-gray-900 mb-4">Register entreprise</h1>
                 <?php
                 if (isset($msg)) {
                 ?>
@@ -96,37 +100,45 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
               </div>
-              <form class="user" action="register_admin.php" method="post">
+              <form class="user" action="register_entreprise.php" method="post">
               <div class="form-group">
-                  <label for="sel1">Genre</label>
-                  <select class="form-control" id="sel1" name="sexe" required>
+                  <label for="sel1">Type d'entreprise </label>
+                  <select class="form-control"  id="sel1" name="type" required>
                     <option></option>
-                    <option value="Homme">Homme</option>
-                    <option value="Femme">Femme</option>
-                  </select>
+                    <option value="Grande/Moyenne Entreprise">Grande/Moyenne Entreprise </option>
+                    <option value="Petite Entreprise">Petite Entreprise</option>
+                  </select>                                    
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <!-- <label>Nom</label> -->
-                    <input type="text" class="form-control form-control-user" placeholder="Nom" name="firstname" required>
+                    <input type="number" class="form-control form-control-user" placeholder="Numero de serie" name="n_serie" required>
                   </div>
                   <div class="col-sm-6">
                     <!-- <label>Prénom</label> -->
-                    <input type="text" class="form-control form-control-user" placeholder="Prénom" name="lastname" required>
+                    <input type="text" class="form-control form-control-user" placeholder="Denomination" name="denomination" required>
                   </div>
                 </div>
                 <div class="form-group">
                   <!-- <label>Numéro CNI</label> -->
-                  <input type="number" class="form-control form-control-user" placeholder="Numéro CNI" name="n_cni" required>
-                </div>
-                <div class="form-group">
-                  <!-- <label>Adresse postale</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Adresse postale" name="adr" required>
+                  <input type="text" class="form-control form-control-user" placeholder="Nom du derigeant" name="nom_dirigeant" required>
                 </div>
                 <div class="form-group">
                   <!-- <label>Numéro de téléphone</label> -->
                   <input type="number" class="form-control form-control-user" placeholder="Numéro de téléphone" name="phone" required>
                 </div>
+                <div class="form-group">
+                  <!-- <label>Adresse postale</label> -->
+                  <input type="text" class="form-control form-control-user" placeholder="Siege social" name="siege_social" required>
+                </div>
+                <div class="form-group">
+                  <!-- <label>Adresse postale</label> -->
+                  <input type="text" class="form-control form-control-user" placeholder="Description" name="description" required>
+                </div>
+                <div class="form-group">
+                    <!-- <label>Prénom</label> -->
+                    <input type="text" class="form-control form-control-user" placeholder="Secteur d'activité" name="secteur_act" required>
+                  </div>
                 <div class="form-group">
                   <!-- <label>Adresse e-mail</label> -->
                   <input type="email" class="form-control form-control-user" placeholder="Adresse e-mail" name="email" required>

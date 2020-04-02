@@ -6,11 +6,11 @@ if (isset($_POST['submit'])) {
   $password=$_POST['password'];
   $password=md5($password);
 
-  $q="SELECT * FROM `admin` WHERE `email`='$email' and `password`='$password'";
+  $q="SELECT * FROM `entreprise` WHERE `email`='$email' and `password`='$password'";
   $r=mysqli_query($dbc,$q);
 
   $row=mysqli_fetch_assoc($r);
-  $admin_id=$row['id'];
+  $entreprise_id=$row['id'];
 
   $num=mysqli_num_rows($r);
 
@@ -18,16 +18,18 @@ if (isset($_POST['submit'])) {
     if ($row['isEmailConfirmed']==1) {
       
     session_start();
-    $_SESSION['admin_id']=$row['id'];
-    $_SESSION['admin_firstname']=$row['firstname'];
-    $_SESSION['admin_lastname']=$row['lastname'];
-    $_SESSION['admin_n_cni']=$row['n_cni'];
-    $_SESSION['admin_adr']=$row['adr'];
-    $_SESSION['admin_phone']=$row['phone'];
-    $_SESSION['admin_email']=$row['email'];
-    $_SESSION['admin_password']=$row['password'];
-    $_SESSION['admin_date']=$row['date'];
-    header('location:profil_admin.php?id='.$admin_id);
+    $_SESSION['entreprise_id']=$row['id'];
+    $_SESSION['entreprise_n_serie']=$row['n_serie'];
+    $_SESSION['entreprise_denomination']=$row['denomination'];
+    $_SESSION['entreprise_nom_dirigeant']=$row['nom_dirigeant'];
+    $_SESSION['entreprise_siege_social']=$row['siege_social'];
+    $_SESSION['entreprise_description']=$row['description'];
+    $_SESSION['entreprise_secteur_act']=$row['secteur_act'];
+    $_SESSION['entreprise_phone']=$row['phone'];
+    $_SESSION['entreprise_email']=$row['email'];
+    $_SESSION['entreprise_password']=$row['password'];
+    $_SESSION['entreprise_date']=$row['date'];
+    header('location:profil_entreprise.php?id='.$admin_id);
 
     }else{
       $msg="L'email n'est pas activé";
@@ -78,7 +80,7 @@ if (isset($_POST['submit'])) {
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Bienvenue</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Bienvenue! Login </h1>
                     <?php
                 if (isset($msg)) {
                 ?>

@@ -24,11 +24,11 @@ echo "<h1>welcome</h1>";
     <br>
     <a href="#">login client</a>
     <hr>
-    <a href="#">Gestion des entreprises</a>
+    <a href="gestion_entreprise.php">Gestion des entreprises</a>
     <br>
-    <a href="#">register entreprise</a>
+    <a href="register_entreprise.php">register entreprise</a>
     <br>
-    <a href="#">login entreprise</a>
+    <a href="login_entreprise.php">login entreprise</a>
     <hr>
     <a href="logout.php">logout</a>
 </body>
