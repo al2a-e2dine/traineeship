@@ -9,21 +9,11 @@ if (!isset($_SESSION['entreprise_id'])) {
 if (isset($_GET['id'])) {
   $entreprise_id=$_GET['id'];
 
-  if($_SESSION['entreprise_id']==1 || $_SESSION['entreprise_id']==$id){
-
   $q="SELECT * FROM `entreprise` WHERE id='$entreprise_id'";
   $r=mysqli_query($dbc,$q);
   $num=mysqli_num_rows($r);
 
-  if ($num!=1) {
-    header('location:index.php');
-  }
-}else{
-  header('location:index.php');
-}
 
-}else{
-  header('location:index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -111,7 +101,7 @@ if (isset($_GET['id'])) {
                                       <span aria-hidden="true">×</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">Voulez-vous vraiment supprimer cette entreprise ?</div>
+                                  <div class="modal-body">Voulez-vous vraiment supprimer cette  entrr ?</div>
                                   <div class="modal-footer">
                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Non</button>
                                     <a class="btn btn-primary" href="delete_entreprise.php?id=<?= $row['id'] ?>">Oui</a>

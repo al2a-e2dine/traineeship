@@ -111,7 +111,7 @@ if (!isset($_SESSION['admin_id'])) {
                     while ($row=mysqli_fetch_assoc($r)) {
                     ?>
                     <tr>
-                      <td><?= $row['ids'] ?></td>
+                      <td><?= $row['id'] ?></td>
                       <td><?= $row['type'] ?></td>
                       <td><?= $row['n_serie'] ?></td>
                       <td><?= $row['denomination'] ?></td>
