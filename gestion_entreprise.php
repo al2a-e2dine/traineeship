@@ -5,10 +5,6 @@ session_start();
 
 if (!isset($_SESSION['entreprise_id'])) {
   header('location:login_entreprise.php');
-}else{
-    if($_SESSION['entreprise_id']!=1){
-        header('location:index.php');    
-        } 
 }
 
 ?>
