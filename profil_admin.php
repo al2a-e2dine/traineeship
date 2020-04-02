@@ -2,6 +2,7 @@
 include_once 'connect.php';
 
 session_start();
+//echo $_SESSION['admin_id']; exit();
 if (!isset($_SESSION['admin_id'])) {
   header('location:login_admin.php');
 }
@@ -9,7 +10,7 @@ if (!isset($_SESSION['admin_id'])) {
 if (isset($_GET['id'])) {
   $admin_id=$_GET['id'];
 
-  if($_SESSION['admin_id']==1 || $_SESSION['admin_id']==$id){
+  if($_SESSION['admin_id']==1 || $_SESSION['admin_id']==$admin_id){
 
   $q="SELECT * FROM `admin` WHERE id='$admin_id'";
   $r=mysqli_query($dbc,$q);
@@ -96,8 +97,22 @@ if (isset($_GET['id'])) {
                             <a href="update_admin.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
                             </a>
-                            <br>
+                            <?php 
+                              if($_SESSION['admin_id']==1){
+                                if($_GET['id']==1){
+                              ?>
+                              <br>
+                              <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_admin<?= $row['id'] ?>" disabled>Supprimer ce employer</button>
+                              <?php
+                              }else{
+                                ?>
+                                <br>
                               <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_admin<?= $row['id'] ?>">Supprimer ce employer</button>
+                                <?php
+                              }
+                            }
+                            ?>
+                            
 
                              <!-- Logout Modal-->
                             <div class="modal fade" id="delete_admin<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

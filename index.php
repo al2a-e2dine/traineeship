@@ -16,13 +16,13 @@ echo "<h1>welcome</h1>";
     <br>
     <a href="register_admin.php">register admin</a>
     <br>
-    <a href="login_admin.php">login admin.php</a>
+    <a href="login_admin.php">login admin</a>
     <hr>
-    <a href="#">Gestion des clients</a>
+    <a href="gestion_client.php">Gestion des clients</a>
     <br>
-    <a href="#">register client</a>
+    <a href="register_client.php">register client</a>
     <br>
-    <a href="#">login client</a>
+    <a href="login_client.php">login client</a>
     <hr>
     <a href="gestion_entreprise.php">Gestion des entreprises</a>
     <br>

@@ -122,7 +122,7 @@ if (isset($_POST['submit'])) {
                   </select>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Numéro CNI</label> -->
+                  <!-- <label>Date de naissance</label> -->
                   <input type="date" class="form-control form-control-user" placeholder="Date de naissance" name="dn" required>
                 </div>
                 <div class="form-group">
@@ -130,19 +130,19 @@ if (isset($_POST['submit'])) {
                   <input type="number" class="form-control form-control-user" placeholder="Numéro CNI" name="n_cni" required>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Adresse postale</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="eta" name="eta" required>
+                  <!-- <label>Etablissement</label> -->
+                  <input type="text" class="form-control form-control-user" placeholder="Etablissement" name="eta" required>
                 </div>
                 <div class="form-group">
                   <!-- <label>Adresse postale</label> -->
                   <input type="text" class="form-control form-control-user" placeholder="Adresse postale" name="adr" required>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Numéro de téléphone</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="nv_etd" name="nv_etd" required>
+                  <!-- <label>Niveau d’étude</label> -->
+                  <input type="text" class="form-control form-control-user" placeholder="Niveau d’étude" name="nv_etd" required>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Numéro de téléphone</label> -->
+                  <!-- <label>Specialite</label> -->
                   <input type="text" class="form-control form-control-user" placeholder="Specialite" name="Specialite" required>
                 </div>
                 <div class="form-group">
@@ -170,7 +170,7 @@ if (isset($_POST['submit'])) {
                 <a class="small" href="login_client.php">Vous avez déjà un compte? S'identifier!</a>
               </div>
               <?php
-              if(isset($_SESSION['client_id']) and $_SESSION['client_id']==1){
+              if(isset($_SESSION['admin_id'])){
               ?>
               <div class="text-center">
                 <a class="small" href="gestion_client.php">Gestion des clients</a>

@@ -5,10 +5,6 @@ session_start();
 
 if (!isset($_SESSION['admin_id'])) {
   header('location:login_admin.php');
-}else{
-    if($_SESSION['admin_id']!=1){
-        header('location:index.php');    
-        } 
 }
 
 ?>
@@ -103,7 +99,7 @@ if (!isset($_SESSION['admin_id'])) {
                   </thead>
                   <tbody>
                     <?php
-                    $q="SELECT * FROM `client` WHERE archived=0";
+                    $q="SELECT * FROM `client` WHERE isEmailConfirmed=1 and archived=0";
                     $r=mysqli_query($dbc,$q);
                     while ($row=mysqli_fetch_assoc($r)) {
                     ?>

@@ -10,13 +10,12 @@ if (isset($_POST['submit'])) {
   $r=mysqli_query($dbc,$q);
 
   $row=mysqli_fetch_assoc($r);
-  $client_id=$row['id'];
 
   $num=mysqli_num_rows($r);
 
   if ($num==1) {
     if ($row['isEmailConfirmed']==1) {
-      
+      $client_id=$row['id'];
     session_start();
     $_SESSION['client_id']=$row['id'];
     $_SESSION['cient_firstname']=$row['firstname'];
@@ -37,7 +36,6 @@ if (isset($_POST['submit'])) {
     }else{
       $msg="L'email n'est pas activé";
     }
-    
   }else{
     $msg="L'adresse E-mail ou mot de passe incorrect !";
   }

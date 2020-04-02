@@ -103,7 +103,7 @@ if (!isset($_SESSION['admin_id'])) {
                   </thead>
                   <tbody>
                     <?php
-                    $q="SELECT * FROM `admin` WHERE archived=0";
+                    $q="SELECT * FROM `admin` WHERE isEmailConfirmed=1 and archived=0";
                     $r=mysqli_query($dbc,$q);
                     while ($row=mysqli_fetch_assoc($r)) {
                     ?>
@@ -123,7 +123,12 @@ if (!isset($_SESSION['admin_id'])) {
                         </a>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_emp<?= $row['id'] ?>">Supprimer</button>
+                        <?php if($row['id']==1){?>
+                          <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_emp<?= $row['id'] ?>" disabled>Supprimer</button>
+                          <?php }else{
+                            ?>
+                            <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_emp<?= $row['id'] ?>">Supprimer</button>
+                          <?php } ?>
 
                         <!-- Logout Modal-->
                             <div class="modal fade" id="delete_emp<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

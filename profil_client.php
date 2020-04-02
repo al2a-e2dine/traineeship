@@ -2,29 +2,33 @@
 include_once 'connect.php';
 
 session_start();
-/*if (!isset($_SESSION['admin_id'])) {
-  header('location:login_admin.php');
-}*/
 
 if (isset($_GET['id'])) {
-  $client_id=$_GET['id'];
+  $id=$_GET['id'];
+}else{
+  header('location:index.php');
+}
 
-  //if($_SESSION['admin_id']==1 || $_SESSION['admin_id']==$id){
+if (isset($_SESSION['admin_id'])) {
+  $admin_id=$_SESSION['admin_id'];
+}elseif(isset($_SESSION['client_id'])){
+  $client_id=$_SESSION['client_id'];
+  if($client_id!=$id){
+    header('location:index.php');
+  }
+}else{
+  header('location:index.php');
+}
 
-  $q="SELECT * FROM `client` WHERE id='$client_id'";
+
+  $q="SELECT * FROM `client` WHERE id='$id'";
   $r=mysqli_query($dbc,$q);
   $num=mysqli_num_rows($r);
 
   if ($num!=1) {
     header('location:index.php');
   }
-}/*else{
-  header('location:index.php');
-}
 
-}else{
-  header('location:index.php');
-}*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,13 +101,16 @@ if (isset($_GET['id'])) {
                             <p><b>Adresse e-mail : </b><?= $row['email'] ?></p>
                         </div>
                         <div class="col-md-6">
-                          <p><b>date d'inscription : </b><?= $row['date'] ?></p>
+                            <p><b>date d'inscription : </b><?= $row['date'] ?></p>
                             <a href="update_client.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
                             </a>
+                            <?php 
+                              if(isset($_SESSION['admin_id'])){
+                              ?>
                             <br>
                               <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_client<?= $row['id'] ?>">Supprimer ce client</button>
-
+                              <?php } ?>
                              <!-- Logout Modal-->
                             <div class="modal fade" id="delete_client<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">

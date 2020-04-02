@@ -11,14 +11,15 @@
 
   <!-- Divider -->
   <hr class="sidebar-divider my-0">
-
+  <?php if(isset($_SESSION['admin_id'])){
+    if($_SESSION['admin_id']==1){ ?>
   <!-- Nav Item - Tables -->
   <li class="nav-item">
     <a class="nav-link" href="gestion_admin.php">
       <i class="fas fa-fw fa-table"></i>
       <span>Gestion des employés</span></a>
   </li>
-
+  <?php } ?>
   <!-- Nav Item - Tables -->
   <li class="nav-item">
     <a class="nav-link" href="gestion_client.php">
@@ -31,6 +32,14 @@
     <a class="nav-link" href="#">
       <i class="fas fa-fw fa-table"></i>
       <span>Gestion des entreprises</span></a>
+  </li>
+  <?php } ?>
+
+  <!-- Nav Item - Tables -->
+  <li class="nav-item">
+    <a class="nav-link" href="#">
+      <i class="fas fa-fw fa-table"></i>
+      <span>text</span></a>
   </li>
 
   <!-- Divider -->

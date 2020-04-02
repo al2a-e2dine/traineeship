@@ -2,17 +2,25 @@
 include_once 'connect.php';
 
 session_start();
-/*if (!isset($_SESSION['admin_id'])) {
-  header('location:login_admin.php');
-}*/
 
 if (isset($_GET['id'])) {
-    $id=$_GET['id'];
-  }else{
-    header('location:index.php');
-  }
+  $id=$_GET['id'];
+}else{
+  header('location:index.php');
+}
 
-    //if($_SESSION['admin_id']==1 || $_SESSION['admin_id']==$id){
+if (isset($_SESSION['admin_id'])){
+  $admin_id=$_SESSION['admin_id'];
+}
+
+if (isset($_SESSION['client_id'])){
+  $c_id=$_SESSION['client_id'];
+  if($c_id!=$id){
+    header('location:index.php');
+    }
+}
+
+
       if (isset($_POST['submit'])) {
        
       $firstname=$_POST['firstname'];
@@ -25,22 +33,15 @@ if (isset($_GET['id'])) {
       $nv_etd=$_POST['nv_etd'];
       $Specialite=$_POST['Specialite'];
       $phone=$_POST['phone'];
-      //$client_id=$_POST['client_id'];
+      $client_id=$_POST['client_id'];
     
-            $q="UPDATE `client` SET `firstname`='$firstname',`lastname`='$lastname',`sexe`='$sexe',`dn`='$dn',`n_cni`='$n_cni',`eta`='$eta',`adr`='$adr',`nv_etd`='$nv_etd',`Specialite`='$Specialite',`phone`='$phone'  WHERE id='$id'";
+            $q="UPDATE `client` SET `firstname`='$firstname',`lastname`='$lastname',`sexe`='$sexe',`dn`='$dn',`n_cni`='$n_cni',`eta`='$eta',`adr`='$adr',`nv_etd`='$nv_etd',`Specialite`='$Specialite',`phone`='$phone'  WHERE id='$client_id'";
     
             $r=mysqli_query($dbc,$q);
     
             $msg="Les informations ont été modifiées avec succès!";
     
     }
-   /* }else{
-      header('Location: index.php');
-    }
-
-}else{
-    header('Location: index.php');
-}*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +115,7 @@ if (isset($_GET['id'])) {
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>Numéro CNI</label>
+                  <label>Date de naissance</label>
                   <input type="date" class="form-control form-control-user" value="<?= $rows['dn'] ?>" name="dn" required>
                 </div>
                 <div class="form-group">
@@ -122,7 +123,7 @@ if (isset($_GET['id'])) {
                   <input type="number" class="form-control form-control-user" value="<?= $rows['n_cni'] ?>" name="n_cni" required>
                 </div>
                 <div class="form-group">
-                  <label>Adresse postale</label>
+                  <label>Etablissement</label>
                   <input type="text" class="form-control form-control-user" value="<?= $rows['eta'] ?>" name="eta" required>
                 </div>
                 <div class="form-group">
@@ -130,11 +131,11 @@ if (isset($_GET['id'])) {
                   <input type="text" class="form-control form-control-user" value="<?= $rows['adr'] ?>" name="adr" required>
                 </div>
                 <div class="form-group">
-                  <label>Adresse postale</label>
+                  <label>Niveau d’étude</label>
                   <input type="text" class="form-control form-control-user" value="<?= $rows['nv_etd'] ?>" name="nv_etd" required>
                 </div>
                 <div class="form-group">
-                  <label>Adresse postale</label>
+                  <label>Specialite</label>
                   <input type="text" class="form-control form-control-user" value="<?= $rows['Specialite'] ?>" name="Specialite" required>
                 </div>
                 <div class="form-group">
@@ -142,7 +143,7 @@ if (isset($_GET['id'])) {
                   <input type="number" class="form-control form-control-user" value="<?= $rows['phone'] ?>" name="phone" required>
                 </div>
 
-                <input type="hidden" name="admin_id" value="<?= $id ?>">
+                <input type="hidden" name="client_id" value="<?= $id ?>">
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-success" value="Modifier">
               </form>
               <hr>
@@ -150,17 +151,8 @@ if (isset($_GET['id'])) {
                 <a class="small" href="update_client_pass.php?id=<?= $id ?>">Modifier le mot de pass</a>
               </div>
               <div class="text-center">
-                <a class="small" href="profil_admin.php?id=<?= $id ?>">Retour au compte personnel</a>
+                <a class="small" href="profil_client.php?id=<?= $id ?>">Retour au compte personnel</a>
               </div>
-              <?php
-              if(isset($_SESSION['admin_id']) and $_SESSION['admin_id']==1){
-              ?>
-              <div class="text-center">
-                <a class="small" href="gestion_admin.php">Gestion des administrateurs</a>
-              </div>
-              <?php
-              }
-              ?>
               <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>
               </div>
