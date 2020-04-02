@@ -2,16 +2,16 @@
 include_once 'connect.php';
 
 session_start();
-if (!isset($_SESSION['admin_id'])) {
-  header('location:login_admin.php');
+if (!isset($_SESSION['entreprise_id'])) {
+  header('location:login_entreprise.php');
 }
 
 if (isset($_GET['id'])) {
-  $admin_id=$_GET['id'];
+  $entreprise_id=$_GET['id'];
 
-  if($_SESSION['admin_id']==1 || $_SESSION['admin_id']==$id){
+  if($_SESSION['entreprise_id']==1 || $_SESSION['entreprise_id']==$id){
 
-  $q="SELECT * FROM `admin` WHERE id='$admin_id'";
+  $q="SELECT * FROM `entreprise` WHERE id='$entreprise_id'";
   $r=mysqli_query($dbc,$q);
   $num=mysqli_num_rows($r);
 
@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Profil Admin</title>
+  <title>Profil entreprise</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -83,36 +83,38 @@ if (isset($_GET['id'])) {
                 <div class="tab-pane active" id="profile">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5><b>A propos de moi</b></h5>
-                            <p><b>Genre : </b><?= $row['sexe'] ?></p>
-                            <p><b>Nom complet : </b><?= $row['firstname']." ".$row['lastname'] ?></p>
-                            <p><b>Numéro CNI : </b><?= $row['n_cni'] ?></p>
-                            <p><b>Adresse postale : </b><?= $row['adr'] ?></p>
+                            <h5><b>A propos de l'entreprise</b></h5>
+                            <p><b>Type : </b><?= $row['type'] ?></p>
+                            <p><b>Nom du derigeant : </b><?= $row['nom_dirigeant'] ?></p>
+                            <p><b>Denomination : </b><?= $row['denomination'] ?></p>
+                            <p><b>Description : </b><?= $row['description'] ?></p>
+                            <p><b>Secteur d'activité : </b><?= $row['secteur_act'] ?></p>
+                            <p><b>Siege social : </b><?= $row['siege_social'] ?></p>
                             <p><b>Numéro de téléphone : </b><?= $row['phone'] ?></p>
                             <p><b>Adresse e-mail : </b><?= $row['email'] ?></p>
                         </div>
                         <div class="col-md-6">
                           <p><b>date d'inscription : </b><?= $row['date'] ?></p>
-                            <a href="update_admin.php?id=<?= $row['id'] ?>">
+                            <a href="update_entreprise.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
                             </a>
                             <br>
-                              <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_admin<?= $row['id'] ?>">Supprimer ce employer</button>
+                              <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_entreprise<?= $row['id'] ?>">Supprimer cette entreprise</button>
 
                              <!-- Logout Modal-->
-                            <div class="modal fade" id="delete_admin<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="delete_entreprise<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Supprimer un employé</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Supprimer une entreprise</h5>
                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">×</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">Voulez-vous vraiment supprimer ce employé ?</div>
+                                  <div class="modal-body">Voulez-vous vraiment supprimer cette entreprise ?</div>
                                   <div class="modal-footer">
                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Non</button>
-                                    <a class="btn btn-primary" href="delete_admin.php?id=<?= $row['id'] ?>">Oui</a>
+                                    <a class="btn btn-primary" href="delete_entreprise.php?id=<?= $row['id'] ?>">Oui</a>
                                   </div>
                                 </div>
                               </div>

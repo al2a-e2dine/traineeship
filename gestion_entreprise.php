@@ -3,13 +3,11 @@ include_once 'connect.php';
 
 session_start();
 
-if (!isset($_SESSION['entreprise_id'])) {
-  header('location:login_entreprise.php');
-}else{
-    if($_SESSION['entreprise_id']!=1){
-        header('location:index.php');    
-        } 
+if (!isset($_SESSION['admin_id'])) {
+  header('location:login_admin.php');
 }
+
+?>
 
 ?>
 <!DOCTYPE html>
@@ -93,8 +91,13 @@ if (!isset($_SESSION['entreprise_id'])) {
                   <thead>
                     <tr>
                       <th>N°</th>
-                      <th>Nom complet</th>
-                      <th>Genre</th>
+                      <th>Type</th>
+                      <th>Numero de serie</th>
+                      <th>Denomination</th>
+                      <th>Nom derigeant</th>
+                      <th>Siege social</th>
+                      <th>Description</th>
+                      <th>Secteur d'activité</th>
                       <th>Numéro de téléphone</th>
                       <th>Profil</th>
                       <th>Modifier</th>
@@ -108,14 +111,16 @@ if (!isset($_SESSION['entreprise_id'])) {
                     while ($row=mysqli_fetch_assoc($r)) {
                     ?>
                     <tr>
-                      <td><?= $row['id'] ?></td>
-                      <td><?= $row['n_serie']." ".$row['denomination'] ?></td>
+                      <td><?= $row['ids'] ?></td>
+                      <td><?= $row['type'] ?></td>
+                      <td><?= $row['n_serie'] ?></td>
+                      <td><?= $row['denomination'] ?></td>
                       <td><?= $row['nom_dirigeant'] ?></td>
-                      <td><?= $row['phone'] ?></td>
-                      <td><?= $row['siege_social'] ?></td>
+                      <td><?= $row['siege_social'] ?></td>                                        
                       <td><?= $row['description'] ?></td>
                       <td><?= $row['secteur_act'] ?></td>
-                      <td><?= $row['type'] ?></td>
+                      <td><?= $row['phone'] ?></td>   
+                      
                       <td>
                         <a href="profil_entreprise.php?id=<?= $row['id'] ?>">
                           <button type="button" class="btn btn-primary">Profil</button>
