@@ -20,9 +20,6 @@ if (isset($_GET['id'])) {
         $siege_social=$_POST['siege_social'];
         $description=$_POST['description'];
         $secteur_act=$_POST['secteur_act'];
-        $email=$_POST['email'];
-        $password=$_POST['password'];
-        $cpassword=$_POST['cpassword'];
         $entreprise_id=$_POST['entreprise_id'];
     
             $q="UPDATE `entreprise` SET `type`='$type',`n_serie`='$n_serie',`denomination`='$denomination',`nom_dirigeant`='$nom_dirigeant',`siege_social`='$siege_social',`phone`='$phone', `description`='$description',`secteur_act`='$secteur_act' WHERE id='$entreprise_id'";
