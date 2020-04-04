@@ -103,10 +103,10 @@ if (isset($_POST['submit'])) {
                 <a class="small" href="login_client.php">Vous avez déjà un compte? S'identifier!</a>
               </div>
               <?php
-              if(isset($_SESSION['client_id']) and $_SESSION['client_id']==1){
+              if(isset($_SESSION['admin_id'])){
               ?>
               <div class="text-center">
-                <a class="small" href="gestion_client.php">Gestion des administrateurs</a>
+                <a class="small" href="gestion_client.php">Gestion des clients</a>
               </div>
               <?php
               }

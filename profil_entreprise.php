@@ -2,18 +2,31 @@
 include_once 'connect.php';
 
 session_start();
-if (!isset($_SESSION['entreprise_id'])) {
-  header('location:login_entreprise.php');
-}
 
 if (isset($_GET['id'])) {
-  $entreprise_id=$_GET['id'];
+  $id=$_GET['id'];
 
-  $q="SELECT * FROM `entreprise` WHERE id='$entreprise_id'";
+  $q="SELECT * FROM `entreprise` WHERE id='$id'";
   $r=mysqli_query($dbc,$q);
   $num=mysqli_num_rows($r);
 
+  if ($num!=1) {
+    header('location:index.php');
+  }
+  
+}else{
+  header('location:index.php');
+}
 
+if (isset($_SESSION['admin_id'])) {
+  $admin_id=$_SESSION['admin_id'];
+}elseif(isset($_SESSION['entreprise_id'])){
+  $entreprise_id=$_SESSION['entreprise_id'];
+  if($entreprise_id!=$id){
+    header('location:index.php');
+  }
+}else{
+  header('location:index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -88,9 +101,12 @@ if (isset($_GET['id'])) {
                             <a href="update_entreprise.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
                             </a>
+                            <?php 
+                              if(isset($_SESSION['admin_id'])){
+                              ?>
                             <br>
                               <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_entreprise<?= $row['id'] ?>">Supprimer cette entreprise</button>
-
+                              <?php } ?>
                              <!-- Logout Modal-->
                             <div class="modal fade" id="delete_entreprise<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">

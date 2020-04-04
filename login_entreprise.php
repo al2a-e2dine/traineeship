@@ -8,15 +8,12 @@ if (isset($_POST['submit'])) {
 
   $q="SELECT * FROM `entreprise` WHERE `email`='$email' and `password`='$password'";
   $r=mysqli_query($dbc,$q);
-
-  $row=mysqli_fetch_assoc($r);
-  $entreprise_id=$row['id'];
-
   $num=mysqli_num_rows($r);
 
   if ($num==1) {
+    $row=mysqli_fetch_assoc($r);
+  $entreprise_id=$row['id'];
     if ($row['isEmailConfirmed']==1) {
-      
     session_start();
     $_SESSION['entreprise_id']=$row['id'];
     $_SESSION['entreprise_n_serie']=$row['n_serie'];

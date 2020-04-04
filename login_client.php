@@ -8,17 +8,15 @@ if (isset($_POST['submit'])) {
 
   $q="SELECT * FROM `client` WHERE `email`='$email' and `password`='$password'";
   $r=mysqli_query($dbc,$q);
-
-  $row=mysqli_fetch_assoc($r);
-
   $num=mysqli_num_rows($r);
 
   if ($num==1) {
-    if ($row['isEmailConfirmed']==1) {
+    $row=mysqli_fetch_assoc($r);
       $client_id=$row['id'];
+    if ($row['isEmailConfirmed']==1) {
     session_start();
     $_SESSION['client_id']=$row['id'];
-    $_SESSION['cient_firstname']=$row['firstname'];
+    $_SESSION['client_firstname']=$row['firstname'];
     $_SESSION['client_lastname']=$row['lastname'];
     $_SESSION['client_sexe']=$row['sexe'];
     $_SESSION['client_dn']=$row['dn'];
