@@ -108,7 +108,6 @@ if (isset($_SESSION['admin_id'])) {
                             <a href="update_client.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
                             </a>
-                            
                             <?php 
                               if(isset($_SESSION['admin_id'])){
                               ?>
@@ -129,15 +128,10 @@ if (isset($_SESSION['admin_id'])) {
                                   <div class="modal-footer">
                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Non</button>
                                     <a class="btn btn-primary" href="delete_client.php?id=<?= $row['id'] ?>">Oui</a>
-
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <br>
-                            <a href="ajouter_abonnement_client.php?id=<?= $row['id'] ?>">
-                              <button type="button" class="btn btn-primary btn-block">Ajouter un abonnement</button>
-                            </a>
                         </div>
                     </div>
                 </div>
