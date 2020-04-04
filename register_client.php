@@ -122,7 +122,7 @@ if (isset($_POST['submit'])) {
                   </select>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Date de naissance</label> -->
+                  <label>Date de naissance</label>
                   <input type="date" class="form-control form-control-user" placeholder="Date de naissance" name="dn" required>
                 </div>
                 <div class="form-group">

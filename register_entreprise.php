@@ -105,7 +105,7 @@ if (isset($_POST['submit'])) {
                   <label for="sel1">Type d'entreprise </label>
                   <select class="form-control"  id="sel1" name="type" required>
                     <option></option>
-                    <option value="Grande/Moyenne Entreprise">Grande/Moyenne Entreprise </option>
+                    <option value="Grande ou Moyenne Entreprise">Grande ou Moyenne Entreprise </option>
                     <option value="Petite Entreprise">Petite Entreprise</option>
                   </select>                                    
                 </div>
@@ -129,11 +129,11 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="form-group">
                   <!-- <label>Adresse postale</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Siege social" name="siege_social" required>
+                  <input type="number" class="form-control form-control-user" placeholder="Siege social" name="siege_social" required>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Adresse postale</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Description" name="description" required>
+                  <label>Description</label>
+                  <textarea class="form-control" name="description" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
                     <!-- <label>Prénom</label> -->
@@ -160,10 +160,10 @@ if (isset($_POST['submit'])) {
                 <a class="small" href="login_admin.php">Vous avez déjà un compte? S'identifier!</a>
               </div>
               <?php
-              if(isset($_SESSION['admin_id']) and $_SESSION['admin_id']==1){
+              if(isset($_SESSION['admin_id'])){
               ?>
               <div class="text-center">
-                <a class="small" href="gestion_admin.php">Gestion des administrateurs</a>
+                <a class="small" href="gestion_entreprise.php">Gestion des entreprises</a>
               </div>
               <?php
               }
