@@ -67,14 +67,20 @@ if ($r) {
                 }
                 ?>
               </div>
+
+              <div class="card bg-primary text-white">
+                <div class="card-body">
+                <h3>les informations de versement</h3>
+                <hr>
+                <h5><b>Nom Complet : </b> Belalia mohamed alaa eddine</h5>
+                <h5><b>Adresse : </b> Zone12, Mascara</h5>
+                <h5><b>Num CCP : </b> 12345670 89</h5>  
+                </div>
+              </div>
+
+              <hr>
+
               <form action="ajouter_abonnement_client.php?id=<?= $c_id ?>" method="post" enctype="multipart/form-data">
-              <!-- <form class="user" action="ajouter_abonnement_client.php?id=<?= $id ?>" method="post" enctype="multipart/form-data"> -->
-              <h3 class="text-danger">les informations de versement</h3>
-              <hr>
-              <h5><b>Nom Complet : </b> Belalia mohamed alaa eddine</h5>
-              <h5><b>Adresse : </b> Zone12, Mascara</h5>
-              <h5><b>Num CCP : </b> 12345670 89</h5>
-              <hr>
               <div class="form-group">
                     <label for="exampleFormControlFile1">Reçu de paiement</label>
                     <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fileToUpload" required>
