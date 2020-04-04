@@ -1,0 +1,23 @@
+register admin
+    confirmation admin
+login admin
+    fg pass
+    modifier fg pass
+gestion admin
+profil admin
+modifier admin
+    modifier mot de pass admin
+delete admin
+-----------
+register client
+    confirmation client
+login client
+    fg pass
+    modifier fg pass
+gestion client
+profil client
+modifier client
+    modifier mot de pass client
+delete client
+-----------
+

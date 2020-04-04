@@ -2,13 +2,22 @@
 include_once 'connect.php';
 
 session_start();
+
 if (!isset($_SESSION['admin_id'])) {
-  header('location:login_admin.php');
+  header('location:index.php');
 }
 
 if (isset($_GET['id'])) {
 
     $id=$_GET['id'];
+
+  $q="SELECT * FROM `admin` WHERE id='$id'";
+  $r=mysqli_query($dbc,$q);
+  $num=mysqli_num_rows($r);
+
+  if ($num!=1) {
+    header('location:index.php');
+  }
 
     if($_SESSION['admin_id']==1 || $_SESSION['admin_id']==$id){
 

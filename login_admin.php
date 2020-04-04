@@ -8,13 +8,11 @@ if (isset($_POST['submit'])) {
 
   $q="SELECT * FROM `admin` WHERE `email`='$email' and `password`='$password'";
   $r=mysqli_query($dbc,$q);
-
-  $row=mysqli_fetch_assoc($r);
-  $admin_id=$row['id'];
-
   $num=mysqli_num_rows($r);
 
   if ($num==1) {
+    $row=mysqli_fetch_assoc($r);
+  $admin_id=$row['id'];
     if ($row['isEmailConfirmed']==1) {
       
     session_start();

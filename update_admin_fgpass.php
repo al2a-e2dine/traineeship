@@ -1,20 +1,29 @@
 <?php
 include_once 'connect.php';
 
-if (isset($_GET['id'])) {
+if (!isset($_GET['email']) || !isset($_GET['token'])) {
+  header('Location: register_admin.php');
+}else{
 
-    $id=$_GET['id'];
+  $email = $_GET['email'];
+  $token = $_GET['token'];
+}
+
+  $q0="SELECT * FROM `admin` WHERE `email`='$email' and `token`='$token'";
+  $r0=mysqli_query($dbc,$q0);
+  $num0=mysqli_num_rows($r0);
+  
+  if($num0==1){
 
 if (isset($_POST['submit'])) {
   
   $password=$_POST['password'];
   $cpassword=$_POST['cpassword'];
-  $admin_id=$_POST['admin_id'];
 
       if ($password==$cpassword) {
       $password=md5($password);
 
-        $q="UPDATE `admin` SET `password`='$password' WHERE id='$admin_id'";
+        $q="UPDATE `admin` SET `password`='$password' WHERE email='$email' and token='$token'";
 
         $r=mysqli_query($dbc,$q);
 
@@ -25,8 +34,9 @@ if (isset($_POST['submit'])) {
     }
 }
 }else{
-    header('Location: forgot_admin_pass.php');
+  header('Location: register_admin.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +84,7 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
               </div>
-              <form class="user" action="update_admin_fgpass.php?id=<?= $id ?>" method="post">
+              <form class="user" action="update_admin_fgpass.php?email=<?= $email ?>&token=<?= $token ?>" method="post">
               
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
@@ -86,7 +96,6 @@ if (isset($_POST['submit'])) {
                     <input type="password" class="form-control form-control-user" placeholder="Répéter le mot de passe" name="cpassword" required>
                   </div>
                 </div>
-                <input type="hidden" name="admin_id" value="<?= $id ?>">
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-success" value="Modifier">
               </form>
               <hr>

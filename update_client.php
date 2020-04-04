@@ -5,19 +5,28 @@ session_start();
 
 if (isset($_GET['id'])) {
   $id=$_GET['id'];
+
+  $q="SELECT * FROM `client` WHERE id='$id'";
+  $r=mysqli_query($dbc,$q);
+  $num=mysqli_num_rows($r);
+
+  if ($num!=1) {
+    header('location:index.php');
+  }
+  
 }else{
   header('location:index.php');
 }
 
-if (isset($_SESSION['admin_id'])){
+if (isset($_SESSION['admin_id'])) {
   $admin_id=$_SESSION['admin_id'];
-}
-
-if (isset($_SESSION['client_id'])){
-  $c_id=$_SESSION['client_id'];
-  if($c_id!=$id){
+}elseif(isset($_SESSION['client_id'])){
+  $client_id=$_SESSION['client_id'];
+  if($client_id!=$id){
     header('location:index.php');
-    }
+  }
+}else{
+  header('location:index.php');
 }
 
 
@@ -33,9 +42,9 @@ if (isset($_SESSION['client_id'])){
       $nv_etd=$_POST['nv_etd'];
       $Specialite=$_POST['Specialite'];
       $phone=$_POST['phone'];
-      $client_id=$_POST['client_id'];
+      $c_id=$_POST['c_id'];
     
-            $q="UPDATE `client` SET `firstname`='$firstname',`lastname`='$lastname',`sexe`='$sexe',`dn`='$dn',`n_cni`='$n_cni',`eta`='$eta',`adr`='$adr',`nv_etd`='$nv_etd',`Specialite`='$Specialite',`phone`='$phone'  WHERE id='$client_id'";
+            $q="UPDATE `client` SET `firstname`='$firstname',`lastname`='$lastname',`sexe`='$sexe',`dn`='$dn',`n_cni`='$n_cni',`eta`='$eta',`adr`='$adr',`nv_etd`='$nv_etd',`Specialite`='$Specialite',`phone`='$phone'  WHERE id='$c_id'";
     
             $r=mysqli_query($dbc,$q);
     
@@ -143,7 +152,7 @@ if (isset($_SESSION['client_id'])){
                   <input type="number" class="form-control form-control-user" value="<?= $rows['phone'] ?>" name="phone" required>
                 </div>
 
-                <input type="hidden" name="client_id" value="<?= $id ?>">
+                <input type="hidden" name="c_id" value="<?= $id ?>">
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-success" value="Modifier">
               </form>
               <hr>

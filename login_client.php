@@ -118,6 +118,15 @@ if (isset($_POST['submit'])) {
                   <div class="text-center">
                     <a class="small" href="register_admin.php">Créer un compte!</a>
                   </div>
+                  <?php
+              if(isset($_SESSION['admin_id'])){
+              ?>
+              <div class="text-center">
+                <a class="small" href="gestion_client.php">Gestion des clients</a>
+              </div>
+              <?php
+              }
+              ?>
                   <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>
               </div>

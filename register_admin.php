@@ -2,6 +2,19 @@
 include_once 'connect.php';
 session_start();
 
+if(!isset($_SESSION['admin_id'])){
+  header('location:login_admin.php');
+}else{
+?>
+<script>
+  var person = prompt("Please enter PIN");
+  if (person != "102030") {
+    window.location.href = "index.php";
+  }
+</script>
+<?php
+}
+
 if (isset($_POST['submit'])) {
   $sexe=$_POST['sexe'];
   $firstname=$_POST['firstname'];

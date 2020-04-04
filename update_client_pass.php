@@ -2,15 +2,32 @@
 include_once 'connect.php';
 
 session_start();
-/*if (!isset($_SESSION['admin_id'])) {
-  header('location:login_admin.php');
-}*/
 
 if (isset($_GET['id'])) {
+  $id=$_GET['id'];
 
-    $id=$_GET['id'];
+  $q="SELECT * FROM `client` WHERE id='$id'";
+  $r=mysqli_query($dbc,$q);
+  $num=mysqli_num_rows($r);
 
-    //if($_SESSION['admin_id']==1 || $_SESSION['admin_id']==$id){
+  if ($num!=1) {
+    header('location:index.php');
+  }
+  
+}else{
+  header('location:index.php');
+}
+
+if (isset($_SESSION['admin_id'])) {
+  $admin_id=$_SESSION['admin_id'];
+}elseif(isset($_SESSION['client_id'])){
+  $client_id=$_SESSION['client_id'];
+  if($client_id!=$id){
+    header('location:index.php');
+  }
+}else{
+  header('location:index.php');
+}
 
 if (isset($_POST['submit'])) {
 
@@ -20,9 +37,9 @@ $crr_password=md5($crr_password);
 $password=$_POST['password'];
 $cpassword=$_POST['cpassword'];
 
-$client_id=$_POST['client_id'];
+$c_id=$_POST['c_id'];
 
-$q0="SELECT * FROM `client` WHERE id='$id'";
+$q0="SELECT * FROM `client` WHERE id='$c_id'";
 $r0=mysqli_query($dbc,$q0);
 $num0=mysqli_num_rows($r0);
 
@@ -33,7 +50,7 @@ if($num0==1){
         if ($password==$cpassword) {
             $password=md5($password);
       
-              $q="UPDATE `client` SET `password`='$password' WHERE id='$client_id'";
+              $q="UPDATE `client` SET `password`='$password' WHERE id='$c_id'";
       
               $r=mysqli_query($dbc,$q);
       
@@ -48,16 +65,8 @@ if($num0==1){
     }
 }else{
     header('location:index.php');
+}    
 }
-
-      
-}
-}/*else{
-  header('Location: index.php');
-}
-}else{
-    header('Location: index.php');
-}*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +79,7 @@ if($num0==1){
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Modifier le mot de passe</title>
+  <title>Modifier le mot de pass</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -120,15 +129,15 @@ if($num0==1){
                     <input type="password" class="form-control form-control-user" placeholder="Répéter le mot de passe" name="cpassword" required>
                   </div>
                 </div>
-                <input type="hidden" name="client_id" value="<?= $id ?>">
+                <input type="hidden" name="c_id" value="<?= $id ?>">
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-success" value="Modifier">
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="profil_client.php?id=<?= $id ?>">Retour au compte personnel</a>
+                <a class="small" href="profil_admin.php?id=<?= $id ?>">Retour au compte personnel</a>
               </div>
               <?php
-              if(isset($_SESSION['admin_id']) and $_SESSION['admin_id']==1){
+              if(isset($_SESSION['admin_id'])){
               ?>
               <div class="text-center">
                 <a class="small" href="gestion_client.php">Gestion des clients</a>

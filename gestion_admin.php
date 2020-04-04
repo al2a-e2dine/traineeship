@@ -6,10 +6,15 @@ session_start();
 if (!isset($_SESSION['admin_id'])) {
   header('location:login_admin.php');
 }else{
-    if($_SESSION['admin_id']!=1){
-        header('location:index.php');    
-        } 
-}
+  ?>
+  <script>
+    var person = prompt("Please enter PIN");
+    if (person != "102030") {
+      window.location.href = "index.php";
+    }
+  </script>
+  <?php
+  }
 
 ?>
 <!DOCTYPE html>
