@@ -2,15 +2,17 @@
 include_once 'connect.php';
 session_start();
 
+if (isset($_GET['id'])) {
+  $c_id=$_GET['id'];
+}
+
 if (isset($_POST['submit'])) {
-  $client=$_POST['client'];
- 
- 
+  
   include 'upload_file.php';
 
-  $q="INSERT INTO `abonnementclient`(`client_id`,`recu`) VALUES ('$client','$file_name')";
+  $q="INSERT INTO `abonnementclient`(`client_id`,`recu`) VALUES ('$c_id','$file_name')";
+  $r=mysqli_query($dbc,$q);
 
-$r=mysqli_query($dbc,$q);
 if ($r) {
   $msg= "abonnement ajoutée";
 }else{
@@ -30,7 +32,7 @@ if ($r) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>S'inscrire</title>
+  <title>Confirmer le paiement</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -54,7 +56,7 @@ if ($r) {
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Ajouter un abonnement</h1>
+                <h1 class="h4 text-gray-900 mb-4">Confirmer le paiement</h1>
                 <?php
                 if (isset($msg)) {
                 ?>
@@ -65,29 +67,21 @@ if ($r) {
                 }
                 ?>
               </div>
-              <form class="user" action="ajouter_abonnement_client.php" method="post" enctype="multipart/form-data">
-             
+              <form action="ajouter_abonnement_client.php?id=<?= $c_id ?>" method="post" enctype="multipart/form-data">
+              <!-- <form class="user" action="ajouter_abonnement_client.php?id=<?= $id ?>" method="post" enctype="multipart/form-data"> -->
+              <h3 class="text-danger">les informations de versement</h3>
+              <hr>
+              <h5><b>Nom Complet : </b> Belalia mohamed alaa eddine</h5>
+              <h5><b>Adresse : </b> Zone12, Mascara</h5>
+              <h5><b>Num CCP : </b> 12345670 89</h5>
+              <hr>
               <div class="form-group">
-                <label for="exampleFormControlSelect1">client</label>
-                <select class="form-control" id="exampleFormControlSelect1" name="client" required>
-                  <option value=""></option>
-                <?php
-                $q="SELECT * FROM `client`WHERE isEmailConfirmed=1 and archived=0";
-                $r=mysqli_query($dbc,$q);
-                while ($row=mysqli_fetch_assoc($r)) {
-                ?>
-                <option value="<?= $row['id'] ?>"><?= $row['firstname']." ".$row['lastname']  ?></option>
-                <?php
-                }
-                ?>
-                </select>
-              </div>
-              <div class="form-group">
-                    <label for="exampleFormControlFile1">reçu</label>
+                    <label for="exampleFormControlFile1">Reçu de paiement</label>
                     <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fileToUpload" required>
                   </div> 
-               
-                <input type="submit" name="submit" class="btn btn-user btn-block btn-primary" value="Ajouter un abonnement">
+                <!-- <input type="hidden" name="c_id" value="<?= $id ?>"> -->
+                <input type="submit" name="submit" class="btn btn-user btn-block btn-primary" value="Confirmer le paiement">
+
               </form>
               <hr>
               <div class="text-center">
