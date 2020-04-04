@@ -2,15 +2,32 @@
 include_once 'connect.php';
 
 session_start();
-if (!isset($_SESSION['entreprise_id'])) {
-  header('location:login_entreprise.php');
-}
 
 if (isset($_GET['id'])) {
+  $id=$_GET['id'];
 
-    $id=$_GET['id'];
+  $q="SELECT * FROM `entreprise` WHERE id='$id'";
+  $r=mysqli_query($dbc,$q);
+  $num=mysqli_num_rows($r);
 
-    if($_SESSION['entreprise_id']==1 || $_SESSION['entreprise_id']==$id){
+  if ($num!=1) {
+    header('location:index.php');
+  }
+  
+}else{
+  header('location:index.php');
+}
+
+if (isset($_SESSION['admin_id'])) {
+  $admin_id=$_SESSION['admin_id'];
+}elseif(isset($_SESSION['entreprise_id'])){
+  $entreprise_id=$_SESSION['entreprise_id'];
+  if($entreprise_id!=$id){
+    header('location:index.php');
+  }
+}else{
+  header('location:index.php');
+}
 
 if (isset($_POST['submit'])) {
 
@@ -20,9 +37,9 @@ $crr_password=md5($crr_password);
 $password=$_POST['password'];
 $cpassword=$_POST['cpassword'];
 
-$entreprise_id=$_POST['entreprise_id'];
+$e_id=$_POST['e_id'];
 
-$q0="SELECT * FROM `entreprise` WHERE id='$id'";
+$q0="SELECT * FROM `entreprise` WHERE id='$c_id'";
 $r0=mysqli_query($dbc,$q0);
 $num0=mysqli_num_rows($r0);
 
@@ -33,7 +50,7 @@ if($num0==1){
         if ($password==$cpassword) {
             $password=md5($password);
       
-              $q="UPDATE `entreprise` SET `password`='$password' WHERE id='$entreprise_id'";
+              $q="UPDATE `entreprise` SET `password`='$password' WHERE id='$c_id'";
       
               $r=mysqli_query($dbc,$q);
       
@@ -48,15 +65,7 @@ if($num0==1){
     }
 }else{
     header('location:index.php');
-}
-
-      
-}
-}else{
-  header('Location: index.php');
-}
-}else{
-    header('Location: index.php');
+}    
 }
 ?>
 <!DOCTYPE html>
@@ -120,15 +129,15 @@ if($num0==1){
                     <input type="password" class="form-control form-control-user" placeholder="Répéter le mot de passe" name="cpassword" required>
                   </div>
                 </div>
-                <input type="hidden" name="entreprise_id" value="<?= $id ?>">
+                <input type="hidden" name="c_id" value="<?= $id ?>">
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-success" value="Modifier">
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="profil_entreprise.php?id=<?= $id ?>">Retour au compte personnel</a>
+                <a class="small" href="profil_admin.php?id=<?= $id ?>">Retour au compte personnel</a>
               </div>
               <?php
-              if(isset($_SESSION['entreprise_id']) and $_SESSION['entreprise_id']==1){
+              if(isset($_SESSION['admin_id'])){
               ?>
               <div class="text-center">
                 <a class="small" href="gestion_entreprise.php">Gestion des entreprises</a>

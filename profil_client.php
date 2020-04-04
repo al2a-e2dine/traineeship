@@ -5,6 +5,15 @@ session_start();
 
 if (isset($_GET['id'])) {
   $id=$_GET['id'];
+
+  $q="SELECT * FROM `client` WHERE id='$id'";
+  $r=mysqli_query($dbc,$q);
+  $num=mysqli_num_rows($r);
+
+  if ($num!=1) {
+    header('location:index.php');
+  }
+  
 }else{
   header('location:index.php');
 }
@@ -21,13 +30,7 @@ if (isset($_SESSION['admin_id'])) {
 }
 
 
-  $q="SELECT * FROM `client` WHERE id='$id'";
-  $r=mysqli_query($dbc,$q);
-  $num=mysqli_num_rows($r);
-
-  if ($num!=1) {
-    header('location:index.php');
-  }
+  
 
 ?>
 <!DOCTYPE html>

@@ -10,11 +10,11 @@ if (isset($_POST['submit'])) {
 
   if($num==1){
     $row=mysqli_fetch_assoc($r);
-    $id=$row['id'];
+    $token=$row['token'];
 
     $message="
       Veuillez cliquer sur le lien ci-dessous:
-      http://localhost/traineeship/update_admin_fgpass.php?id=".$id;
+      http://localhost/traineeship/update_admin_fgpass.php?email=".$email."&token=".$token;
 
       if(mail($email,"Réinitialiser le mot de passe!",$message)){
         

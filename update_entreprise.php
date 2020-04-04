@@ -2,15 +2,33 @@
 include_once 'connect.php';
 
 session_start();
-if (!isset($_SESSION['entreprise_id'])) {
-  header('location:login_entreprise.php');
-}
 
 if (isset($_GET['id'])) {
+  $id=$_GET['id'];
 
-    $id=$_GET['id'];
+  $q="SELECT * FROM `entreprise` WHERE id='$id'";
+  $r=mysqli_query($dbc,$q);
+  $num=mysqli_num_rows($r);
 
-    if($_SESSION['entreprise_id']==1 || $_SESSION['entreprise_id']==$id){
+  if ($num!=1) {
+    header('location:index.php');
+  }
+  
+}else{
+  header('location:index.php');
+}
+
+if (isset($_SESSION['admin_id'])) {
+  $admin_id=$_SESSION['admin_id'];
+}elseif(isset($_SESSION['entreprise_id'])){
+  $entreprise_id=$_SESSION['entreprise_id'];
+  if($entreprise_id!=$id){
+    header('location:index.php');
+  }
+}else{
+  header('location:index.php');
+}
+
       if (isset($_POST['submit'])) {
         $type=$_POST['type'];
         $n_serie=$_POST['n_serie'];
@@ -20,22 +38,15 @@ if (isset($_GET['id'])) {
         $siege_social=$_POST['siege_social'];
         $description=$_POST['description'];
         $secteur_act=$_POST['secteur_act'];
-        $entreprise_id=$_POST['entreprise_id'];
+        $e_id=$_POST['e_id'];
     
-            $q="UPDATE `entreprise` SET `type`='$type',`n_serie`='$n_serie',`denomination`='$denomination',`nom_dirigeant`='$nom_dirigeant',`siege_social`='$siege_social',`phone`='$phone', `description`='$description',`secteur_act`='$secteur_act' WHERE id='$entreprise_id'";
+            $q="UPDATE `entreprise` SET `type`='$type',`n_serie`='$n_serie',`denomination`='$denomination',`nom_dirigeant`='$nom_dirigeant',`siege_social`='$siege_social',`phone`='$phone', `description`='$description',`secteur_act`='$secteur_act' WHERE id='$e_id'";
     
             $r=mysqli_query($dbc,$q);
     
             $msg="Les informations ont été modifiées avec succès!";
     
     }
-    }else{
-      header('Location: index.php');
-    }
-
-}else{
-    header('Location: index.php');
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,7 +139,7 @@ if (isset($_GET['id'])) {
                     <input type="text" class="form-control form-control-user" placeholder="Secteur d'activité" name="secteur_act" required>
                   </div>
 
-                <input type="hidden" name="entreprise_id" value="<?= $id ?>">
+                <input type="hidden" name="e_id" value="<?= $id ?>">
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-success" value="Modifier">
               </form>
               <hr>
@@ -138,15 +149,6 @@ if (isset($_GET['id'])) {
               <div class="text-center">
                 <a class="small" href="profil_entreprise.php?id=<?= $id ?>">Retour au compte personnel</a>
               </div>
-              <?php
-              if(isset($_SESSION['entreprise_id']) and $_SESSION['entreprise_id']==1){
-              ?>
-              <div class="text-center">
-                <a class="small" href="gestion_entreprise.php">Gestion des entreprises</a>
-              </div>
-              <?php
-              }
-              ?>
               <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>
               </div>
