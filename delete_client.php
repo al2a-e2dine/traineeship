@@ -21,7 +21,7 @@ if (!isset($_SESSION['admin_id'])) {
 	header('location:index.php');
   }
 
-  $q="UPDATE `client` SET `archived`='1' WHERE `id`='$get_id'";
+  $q="UPDATE `client` SET `archived`='1' WHERE `id`='$id'";
 	$r=mysqli_query($dbc,$q);
 	header('location:gestion_client.php?true');
 	

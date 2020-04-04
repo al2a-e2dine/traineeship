@@ -103,40 +103,40 @@ if (isset($_SESSION['admin_id'])) {
               <div class="form-group">
                   <label for="sel1">Type d'entreprise </label>
                   <select class="form-control"  id="sel1" name="type" required>
-                    <option></option>
+                    <option value="<?= $rows['type'] ?>"><?= $rows['type'] ?></option>
                     <option value="Grande/Moyenne Entreprise">Grande/Moyenne Entreprise </option>
                     <option value="Petite Entreprise">Petite Entreprise</option>
                   </select>                                    
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <!-- <label>Nom</label> -->
-                    <input type="number" class="form-control form-control-user" placeholder="Numero de serie" name="n_serie" required>
+                    <label>Numero de serie</label>
+                    <input type="number" class="form-control form-control-user" value="<?= $rows['n_serie'] ?>" name="n_serie" required>
                   </div>
                   <div class="col-sm-6">
-                    <!-- <label>Prénom</label> -->
-                    <input type="text" class="form-control form-control-user" placeholder="Denomination" name="denomination" required>
+                    <label>Denomination</label>
+                    <input type="text" class="form-control form-control-user" value="<?= $rows['denomination'] ?>" name="denomination" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Numéro CNI</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Nom du derigeant" name="nom_dirigeant" required>
+                  <label>Nom du derigeant</label>
+                  <input type="text" class="form-control form-control-user" value="<?= $rows['nom_dirigeant'] ?>" name="nom_dirigeant" required>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Numéro de téléphone</label> -->
-                  <input type="number" class="form-control form-control-user" placeholder="Numéro de téléphone" name="phone" required>
+                  <label>Numéro de téléphone</label>
+                  <input type="number" class="form-control form-control-user" value="<?= $rows['phone'] ?>" name="phone" required>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Adresse postale</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Siege social" name="siege_social" required>
+                  <label>Siege social</label>
+                  <input type="text" class="form-control form-control-user" value="<?= $rows['siege_social'] ?>" name="siege_social" required>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Adresse postale</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Description" name="description" required>
+                  <label>Description</label>
+                  <textarea class="form-control" name="description" rows="3" required><?= $rows['description'] ?></textarea>
                 </div>
                 <div class="form-group">
-                    <!-- <label>Prénom</label> -->
-                    <input type="text" class="form-control form-control-user" placeholder="Secteur d'activité" name="secteur_act" required>
+                    <label>Secteur d'activité</label>
+                    <input type="text" class="form-control form-control-user" value="<?= $rows['secteur_act'] ?>" name="secteur_act" required>
                   </div>
 
                 <input type="hidden" name="e_id" value="<?= $id ?>">
