@@ -3,9 +3,27 @@ include_once 'connect.php';
 
 session_start();
 
+if (isset($_GET['id'])) {
+  $id=$_GET['id'];
+
+  $q="SELECT * FROM `offre` WHERE id='$id'";
+  $r=mysqli_query($dbc,$q);
+  $num=mysqli_num_rows($r);
+
+  if ($num!=1) {
+    header('location:index.php');
+  }
+  
+}else{
+  header('location:index.php');
+}
+
 if (isset($_SESSION['client_id'])) {
   header('location:index.php');
 }
+
+
+  
 
 ?>
 <!DOCTYPE html>
@@ -19,7 +37,7 @@ if (isset($_SESSION['client_id'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Gestion des offre d'emploi</title>
+  <title>Offre d'emploi</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +56,7 @@ if (isset($_SESSION['client_id'])) {
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-        <?php
+    <?php
     include 'sidebar.html';
     ?>
 
@@ -56,78 +74,45 @@ if (isset($_SESSION['client_id'])) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Gestion des offre d'emploi</h1>
-          <p class="mb-4">kach manektbou hna ...</p>
           <?php
-                if (isset($_GET['true'])) {
-                ?>
-                <div class="alert alert-success">
-                  <strong>Notification!</strong> Suppression réussie
-                </div>
-                <?php
-                }else if(isset($_GET['false'])){
-                ?>
-                <div class="alert alert-warning">
-                  <strong>Notification!</strong> Suppression non réussie
-                </div>
-                <?php
-                }
-                ?>
-          <a href="add_off.php">
-            <button type="button" class="btn btn-block btn-primary">Ajouter un offre d'emploi</button>
-          </a>
-          <br>
-
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold">Nos offre d'emploi</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>N°</th>
-                      <th>Titre</th>
-                      <th>Détail</th>
-                      <th>Modifier</th>
-                      <th>Supprimer</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    $q="SELECT * FROM `offre` WHERE archived=0";
-                    $r=mysqli_query($dbc,$q);
-                    while ($row=mysqli_fetch_assoc($r)) {
-                    ?>
-                    <tr>
-                      <td><?= $row['id'] ?></td>
-                      <td><?= $row['title'] ?></td>
-                      <td>
-                        <a href="dt_off.php?id=<?= $row['id'] ?>">
-                          <button type="button" class="btn btn-primary btn-block">Détail</button>
-                        </a>
-                      </td>
-                      <td>
-                        <a href="update_off.php?id=<?= $row['id'] ?>">
-                          <button type="button" class="btn btn-success btn-block">Modifier</button>
-                        </a>
-                      </td>
-                      <td>
-                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_off<?= $row['id'] ?>">Supprimer</button>
-
-                        <!-- Logout Modal-->
+          $row=mysqli_fetch_assoc($r);
+          ?>
+    <div class="row my-2">
+        <div class="col-lg-8 order-lg-2">
+            <div class="tab-content py-4">
+                <div class="tab-pane active" id="profile">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><b>Détail de l'offre d'emploi</b></h5>
+                            
+                            <p><b>Titre : </b><?= $row['title'] ?></p>
+                            <p><b>Détail : </b><?= $row['dt'] ?></p>
+                            <p><b>Nombre de places : </b><?= $row['n_places'] ?></p>
+                            <p><b>La nature du offre : </b><?= $row['nature_offre'] ?></p>
+                            <p><b>Specialite : </b><?= $row['Specialite'] ?></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>date de création : </b><?= $row['date'] ?></p>
+                            <a href="update_off.php?id=<?= $row['id'] ?>">
+                              <button type="button" class="btn btn-success btn-block">Modifier l'offre d'emploi</button>
+                            </a>
+                            <?php 
+                              if(!isset($_SESSION['client_id'])){
+                              ?>
+                            <br>
+                              <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_off<?= $row['id'] ?>">Supprimer l'offre d'emploi</button>
+                              <?php } ?>
+                             <!-- Logout Modal-->
                             <div class="modal fade" id="delete_off<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Supprimer un offre</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Supprimer l'offre d'emploi</h5>
                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">×</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">Voulez-vous vraiment supprimer ce offre ?</div>
+                                  <div class="modal-body">Voulez-vous vraiment supprimer ce l'offre d'emploi ?</div>
                                   <div class="modal-footer">
                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Non</button>
                                     <a class="btn btn-primary" href="delete_off.php?id=<?= $row['id'] ?>">Oui</a>
@@ -135,31 +120,29 @@ if (isset($_SESSION['client_id'])) {
                                 </div>
                               </div>
                             </div>
-                      </td>
-                    </tr>
-                    <?php
-                    }
-                    ?>
-                  </tbody>
-                </table>
-              </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
         </div>
+        <div class="col-lg-4 order-lg-1">
+            <img src="<?= $row['img'] ?>" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+            <br><br><br>
+        </div>
+    </div>
+    <hr>
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
 
-      <?php
-      include 'footer.html';
-      ?>
+      
 
     </div>
     <!-- End of Content Wrapper -->
-    
-
+<?php
+        include 'footer.html';
+        ?>
   </div>
   <!-- End of Page Wrapper -->
 
@@ -168,7 +151,7 @@ if (isset($_SESSION['client_id'])) {
     <i class="fas fa-angle-up"></i>
   </a>
 
-
+  
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
