@@ -142,8 +142,16 @@ if (isset($_POST['submit'])) {
                   <input type="text" class="form-control form-control-user" placeholder="Niveau d’étude" name="nv_etd" required>
                 </div>
                 <div class="form-group">
-                  <!-- <label>Specialite</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Specialite" name="Specialite" required>
+                  <label for="sel1">Specialite</label>
+                  <select class="form-control" id="sel1" name="Specialite" required>
+                    <option></option>
+                    <option value="s1">Specialite 1</option>
+                    <option value="s2">Specialite 2</option>
+                    <option value="s3">Specialite 3</option>
+                    <option value="s4">Specialite 4</option>
+                    <option value="s5">Specialite 5</option>
+                    <option value="s6">Specialite 6</option>
+                  </select>
                 </div>
                 <div class="form-group">
                   <!-- <label>Numéro de téléphone</label> -->
