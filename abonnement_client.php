@@ -97,11 +97,22 @@ if (!isset($_SESSION['admin_id'])) {
                   </thead>
                   <tbody>
                     <?php
-                    $q="SELECT * FROM `abonnementclient`where valider=1 ";
+                    
+
+                    $q="SELECT * FROM `abonnementclient`where valider=1 and archived=0";
                     $r=mysqli_query($dbc,$q);
                     while ($row=mysqli_fetch_assoc($r)) {
+                      $date=date("Y-m-d");
+                      //$id=$row['id'];
+                      if($row['date_fin']==$date){
+                        //$q0="UPDATE `abonnementclient` SET `archived`=1 WHERE id='$id'";
+                        //$r0=mysqli_query($dbc,$q0);
+                        ?>
+                        <tr style="background-color:#ffeb99">
+                        <?php
+                      }
                     ?>
-                    <tr>
+                    
                       <td><?= $row['id'] ?></td>
                       <?php
                       $c_id=$row['client_id'];

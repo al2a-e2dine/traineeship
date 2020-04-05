@@ -132,6 +132,39 @@ if (isset($_SESSION['admin_id'])) {
                                 </div>
                               </div>
                             </div>
+                                <br>
+
+                                <?php
+                                $q="SELECT * FROM `abonnementclient` where client_id='$id' and archived=0";
+                                $r=mysqli_query($dbc,$q);
+                                $row=mysqli_fetch_assoc($r);
+
+                                $date=date("Y-m-d");
+                                $date_fin=$row['date_fin'];
+
+                                //$date_24 = date('Y-m-d',strtotime(date("Y-m-d", mktime()) . " - 1 day"));
+
+                                $date_24 = date('Y-m-d', strtotime("-1 day", strtotime($date_fin)));
+
+                                if($date_fin==$date){
+                                  ?>
+                                  <div class="alert alert-danger" role="alert">
+                                    <strong>Notification</strong>Votre abonnement est terminé
+                                  </div>
+                                  <?php
+                                }
+
+                                if($date_24==$date){
+                                  ?>
+                                  <div class="alert alert-warning" role="alert">
+                                    <strong>Notification</strong>Votre abonnement est terminé dans 24h
+                                  </div>
+                                  <?php
+                                }
+                                ?>
+
+                                
+                            
                         </div>
                     </div>
                 </div>

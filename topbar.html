@@ -20,7 +20,7 @@
                 <?php if(isset($_SESSION['admin_id'])){ ?>
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['admin_firstname']." ".$_SESSION['admin_lastname'] ?></span>
                   <?php }elseif(isset($_SESSION['client_id'])){ ?>
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['cient_firstname']." ".$_SESSION['client_lastname'] ?></span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['client_firstname']." ".$_SESSION['client_lastname'] ?></span>
                     <?php } ?>
                 
                 <img class="img-profile rounded-circle" src="img/avatar.jpg">
