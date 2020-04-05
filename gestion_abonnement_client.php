@@ -90,23 +90,23 @@ if (!isset($_SESSION['admin_id'])) {
                     <tr>
                       <th>N°</th>
                       <th>Nom complet</th>
-                      <th>Genre</th>
-                      
                       <th>Date</th>
-                      <th>Modifier</th>
-                      <th>Supprimer</th>
+                      
+                      <th>reçu</th>
+                      <th>Accepter</th>
+                      <th>Refuser</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    $q="SELECT * FROM `abonnementclient` ";
+                    $q="SELECT * FROM `abonnementclient`where valider=0 ";
                     $r=mysqli_query($dbc,$q);
                     while ($row=mysqli_fetch_assoc($r)) {
                     ?>
                     <tr>
                       <td><?= $row['id'] ?></td>
                       <?php
-                      $c_id=$row['client'];
+                      $c_id=$row['client_id'];
                       $q1="SELECT * FROM `client` where id='$c_id'";
                       $r1=mysqli_query($dbc,$q1);
                       $row1=mysqli_fetch_assoc($r1);
@@ -116,32 +116,49 @@ if (!isset($_SESSION['admin_id'])) {
                       <td><?= $row['date'] ?></td>
                       
                       <td>
-                        <a href="dt_abonnement_client.php?id=<?= $row['id'] ?>">
-                          <button type="button" class="btn btn-primary">Profil</button>
+                        <a href="#">
+                          <button type="button" class="btn btn-primary">Reçu</button>
                         </a>
                       </td>
                       <td>
-                        <a href="update_abonnement_client.php?id=<?= $row['id'] ?>">
-                          <button type="button" class="btn btn-success">Modifier</button>
-                        </a>
-                      </td>
-                      <td>
-                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_emp<?= $row['id'] ?>">Supprimer</button>
+                        <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#accept_abonnement<?= $row['id'] ?>">Accepter</button>
 
                         <!-- Logout Modal-->
-                            <div class="modal fade" id="delete_emp<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="accept_abonnement<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Supprimer un client</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">accepter un abonnement d'un client</h5>
                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">×</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">Voulez-vous vraiment supprimer ce client ?</div>
+                                  <div class="modal-body">Voulez-vous vraiment accepeter cet abonnement de client ?</div>
                                   <div class="modal-footer">
                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Non</button>
-                                    <a class="btn btn-primary" href="delete_abonnement_client.php?id=<?= $row['id'] ?>">Oui</a>
+                                    <a class="btn btn-primary" href="accepter_abonnement_client.php?id=<?= $row['id'] ?>">Oui</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#refuser_abonnement<?= $row['id'] ?>">Refuser</button>
+
+                        <!-- Logout Modal-->
+                            <div class="modal fade" id="refuser_abonnement<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Refuser un abonnement d'un client</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">Voulez-vous vraiment refuser cet abonnement de client ?</div>
+                                  <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Non</button>
+                                    <a class="btn btn-primary" href="refuser_abonnement_client.php?id=<?= $row['id'] ?>">Oui</a>
                                   </div>
                                 </div>
                               </div>
