@@ -2,12 +2,22 @@
 include_once 'connect.php';
 session_start();
 
-if (isset($_SESSION['client_id'])) {
+if (!isset($_SESSION['entreprise_id'])) {
     header('location:index.php');
   }
 
+  $ent_id=$_SESSION['entreprise_id'];
+
 if (isset($_GET['id'])) {
     $id=$_GET['id'];
+  }
+
+  $qz="SELECT * FROM `offre` WHERE `id_entreprise`='$ent_id' and `id`='$id'";
+  $rz=mysqli_query($dbc,$qz);
+  $numz=mysqli_num_rows($rz);
+
+  if($numz!=1){
+    header('location:index.php');
   }
 
 if (isset($_POST['submit'])) {
@@ -125,10 +135,7 @@ if (isset($_POST['submit'])) {
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="gestion_entreprise.php">Gestion des entreprises</a>
-                </div>
-                <div class="text-center">
-                <a class="small" href="gestion_off.php">Gestion des offre d'emploi</a>
+                <a class="small" href="gestion_off.php?id=<?= $ent_id ?>">Gestion des offre d'emploi</a>
                 </div>
               <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>

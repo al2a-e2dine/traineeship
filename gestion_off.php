@@ -3,7 +3,17 @@ include_once 'connect.php';
 
 session_start();
 
-if (isset($_SESSION['client_id'])) {
+if (!isset($_SESSION['entreprise_id'])) {
+  header('location:index.php');
+}
+
+$ent_id=$_SESSION['entreprise_id'];
+
+if (isset($_GET['id'])) {
+  $id=$_GET['id'];
+}
+
+if($ent_id!=$id){
   header('location:index.php');
 }
 
@@ -97,7 +107,7 @@ if (isset($_SESSION['client_id'])) {
                   </thead>
                   <tbody>
                     <?php
-                    $q="SELECT * FROM `offre` WHERE archived=0";
+                    $q="SELECT * FROM `offre` WHERE id_entreprise='$id' and archived=0";
                     $r=mysqli_query($dbc,$q);
                     while ($row=mysqli_fetch_assoc($r)) {
                     ?>

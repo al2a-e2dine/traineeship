@@ -18,9 +18,9 @@ if (isset($_GET['id'])) {
   header('location:index.php');
 }
 
-if (isset($_SESSION['client_id'])) {
-  header('location:index.php');
-}
+// if (isset($_SESSION['client_id'])) {
+//   header('location:index.php');
+// }
 
 
   
@@ -76,6 +76,12 @@ if (isset($_SESSION['client_id'])) {
           <!-- Page Heading -->
           <?php
           $row=mysqli_fetch_assoc($r);
+          $off_id=$row['id'];
+          $ent_id=$row['id_entreprise'];
+
+          $q0="SELECT * FROM `entreprise` WHERE `id`='$ent_id'";
+          $r0=mysqli_query($dbc,$q0);
+          $row0=mysqli_fetch_assoc($r0);
           ?>
     <div class="row my-2">
         <div class="col-lg-8 order-lg-2">
@@ -84,7 +90,7 @@ if (isset($_SESSION['client_id'])) {
                     <div class="row">
                         <div class="col-md-6">
                             <h5><b>Détail de l'offre d'emploi</b></h5>
-                            
+                            <p><b>Par l'entreprise : </b> <a href="profil_entreprise.php?id=<?= $ent_id ?>"><?= $row0['denomination'] ?></a></p>
                             <p><b>Titre : </b><?= $row['title'] ?></p>
                             <p><b>Détail : </b><?= $row['dt'] ?></p>
                             <p><b>Nombre de places : </b><?= $row['n_places'] ?></p>
@@ -93,14 +99,19 @@ if (isset($_SESSION['client_id'])) {
                         </div>
                         <div class="col-md-6">
                             <p><b>date de création : </b><?= $row['date'] ?></p>
-                            <a href="update_off.php?id=<?= $row['id'] ?>">
+                            <?php 
+                              if(isset($_SESSION['entreprise_id'])){
+                                if($_SESSION['entreprise_id']==$ent_id){
+                                  ?>
+                                  <a href="update_off.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Modifier l'offre d'emploi</button>
                             </a>
-                            <?php 
-                              if(!isset($_SESSION['client_id'])){
-                              ?>
                             <br>
                               <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_off<?= $row['id'] ?>">Supprimer l'offre d'emploi</button>
+                                  <?php
+                                  }
+                                  ?>
+                            
                               <?php } ?>
                              <!-- Logout Modal-->
                             <div class="modal fade" id="delete_off<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -5,6 +5,8 @@ session_start();
 
 if (!isset($_SESSION['admin_id'])) {
   header('location:index.php');
+}else{
+  $s_id=$_SESSION['admin_id'];
 }
 
 if (isset($_GET['id'])) {
@@ -89,6 +91,10 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="col-md-6">
                           <p><b>date d'inscription : </b><?= $row['date'] ?></p>
+                          <?php 
+                          if($s_id==1 || $s_id==$admin_id){
+                          ?>
+                          
                             <a href="update_admin.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
                             </a>
@@ -106,6 +112,7 @@ if (isset($_GET['id'])) {
                                 <?php
                               }
                             }
+                          }
                             ?>
                             
 

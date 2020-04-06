@@ -2,9 +2,11 @@
 include_once 'connect.php';
 session_start();
 
-if (isset($_SESSION['client_id'])) {
+if (!isset($_SESSION['entreprise_id'])) {
   header('location:index.php');
 }
+
+$ent_id=$_SESSION['entreprise_id'];
 
 if (isset($_POST['submit'])) {
   $title=$_POST['title'];
@@ -15,7 +17,7 @@ if (isset($_POST['submit'])) {
 
   include 'upload_file.php';
 
-        $q="INSERT INTO `offre`(`title`, `dt`, `n_places`, `nature_offre`, `Specialite`, `img`) VALUES ('$title', '$dt', '$n_places', '$nature_offre', '$Specialite', '$file_name')";
+        $q="INSERT INTO `offre`(`id_entreprise`, `title`, `dt`, `n_places`, `nature_offre`, `Specialite`, `img`) VALUES ('$ent_id', '$title', '$dt', '$n_places', '$nature_offre', '$Specialite', '$file_name')";
 
         $r=mysqli_query($dbc,$q);
 
@@ -106,11 +108,8 @@ if (isset($_POST['submit'])) {
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-primary" value="Ajouter un offre d'emploi">
               </form>
               <hr>
-              <div class="text-center">
-                <a class="small" href="gestion_entreprise.php">Gestion des entreprises</a>
-                </div>
                 <div class="text-center">
-                <a class="small" href="gestion_off.php">Gestion des offre d'emploi</a>
+                <a class="small" href="gestion_off.php?id=<?= $ent_id ?>">Gestion des offre d'emploi</a>
                 </div>
               <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>

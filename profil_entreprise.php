@@ -18,16 +18,16 @@ if (isset($_GET['id'])) {
   header('location:index.php');
 }
 
-if (isset($_SESSION['admin_id'])) {
-  $admin_id=$_SESSION['admin_id'];
-}elseif(isset($_SESSION['entreprise_id'])){
-  $entreprise_id=$_SESSION['entreprise_id'];
-  if($entreprise_id!=$id){
-    header('location:index.php');
-  }
-}else{
-  header('location:index.php');
-}
+// if (isset($_SESSION['admin_id'])) {
+//   $admin_id=$_SESSION['admin_id'];
+// }elseif(isset($_SESSION['entreprise_id'])){
+//   $entreprise_id=$_SESSION['entreprise_id'];
+//   if($entreprise_id!=$id){
+//     header('location:index.php');
+//   }
+// }else{
+//   header('location:index.php');
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,10 +98,20 @@ if (isset($_SESSION['admin_id'])) {
                         </div>
                         <div class="col-md-6">
                           <p><b>date d'inscription : </b><?= $row['date'] ?></p>
+                          <?php 
+                              if(isset($_SESSION['admin_id'])){
+                                $s_admin_id=$_SESSION['admin_id'];
+                              }
+                              if(isset($_SESSION['entreprise_id'])){
+                                $s_entreprise_id=$_SESSION['entreprise_id'];
+                              }
+                              if($s_admin_id || $s_entreprise_id==$id){
+                              ?>
                             <a href="update_entreprise.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
                             </a>
                             <?php 
+                              }
                               if(isset($_SESSION['admin_id'])){
                               ?>
                             <br>

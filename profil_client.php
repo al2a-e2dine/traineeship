@@ -18,16 +18,16 @@ if (isset($_GET['id'])) {
   header('location:index.php');
 }
 
-if (isset($_SESSION['admin_id'])) {
-  $admin_id=$_SESSION['admin_id'];
-}elseif(isset($_SESSION['client_id'])){
-  $client_id=$_SESSION['client_id'];
-  if($client_id!=$id){
-    header('location:index.php');
-  }
-}else{
-  header('location:index.php');
-}
+// if (isset($_SESSION['admin_id'])) {
+//   $admin_id=$_SESSION['admin_id'];
+// }elseif(isset($_SESSION['client_id'])){
+//   $client_id=$_SESSION['client_id'];
+//   if($client_id!=$id){
+//     header('location:index.php');
+//   }
+// }else{
+//   header('location:index.php');
+// }
 
 
   
@@ -105,10 +105,20 @@ if (isset($_SESSION['admin_id'])) {
                         </div>
                         <div class="col-md-6">
                             <p><b>date d'inscription : </b><?= $row['date'] ?></p>
+                            <?php 
+                              if(isset($_SESSION['admin_id'])){
+                                $s_admin_id=$_SESSION['admin_id'];
+                              }
+                              if(isset($_SESSION['client_id'])){
+                                $s_client_id=$_SESSION['client_id'];
+                              }
+                              if($s_admin_id || $s_client_id==$id){
+                              ?>
                             <a href="update_client.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
                             </a>
                             <?php 
+                            }
                               if(isset($_SESSION['admin_id'])){
                               ?>
                             <br>
@@ -136,31 +146,37 @@ if (isset($_SESSION['admin_id'])) {
 
                                 <?php
                                 $q="SELECT * FROM `abonnementclient` where client_id='$id' and archived=0";
+                                //echo $q;exit();
                                 $r=mysqli_query($dbc,$q);
                                 $row=mysqli_fetch_assoc($r);
 
                                 $date=date("Y-m-d");
-                                $date_fin=$row['date_fin'];
 
-                                //$date_24 = date('Y-m-d',strtotime(date("Y-m-d", mktime()) . " - 1 day"));
+                                if($row){
+                                $date_fin=$row['date_fin'];
 
                                 $date_24 = date('Y-m-d', strtotime("-1 day", strtotime($date_fin)));
 
                                 if($date_fin==$date){
+                                  if(isset($_SESSION['client_id'])){
                                   ?>
                                   <div class="alert alert-danger" role="alert">
                                     <strong>Notification</strong>Votre abonnement est terminé
                                   </div>
                                   <?php
                                 }
+                                }
 
                                 if($date_24==$date){
+                                  if(isset($_SESSION['client_id'])){
                                   ?>
                                   <div class="alert alert-warning" role="alert">
                                     <strong>Notification</strong>Votre abonnement est terminé dans 24h
                                   </div>
                                   <?php
                                 }
+                              }
+                              }
                                 ?>
 
                                 
