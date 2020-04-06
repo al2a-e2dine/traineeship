@@ -2,9 +2,7 @@
 include_once 'connect.php';
 session_start();
 
-if(!isset($_SESSION['admin_id'])){
-  header('location:login_admin.php');
-}else{
+
 ?>
 <script>
   var person = prompt("Please enter PIN");
@@ -13,7 +11,7 @@ if(!isset($_SESSION['admin_id'])){
   }
 </script>
 <?php
-}
+
 
 if (isset($_POST['submit'])) {
   $sexe=$_POST['sexe'];
