@@ -125,12 +125,28 @@ if (!isset($_SESSION['admin_id'])) {
                       <td><?= $row['date_db'] ?></td>
                       <td><?= $row['date_fin'] ?></td>
                       
-                      <td>
-                        <a href="#">
-                          <button type="button" class="btn btn-primary">Reçu</button>
-                        </a>
-                      </td>
                       
+                      
+                      <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#recu_abonnement<?= $row['id'] ?>">Reçu</button>
+
+                        <!-- Logout Modal-->
+                            <div class="modal fade" id="recu_abonnement<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Photo de reçu</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body"><img src="<?= $row['recu'] ?>" class="mx-auto d-block img-thumbnail"></div>
+                                 
+                                </div>
+                              </div>
+                            </div>
+                      </td>
+
 
                       
                       <td>
