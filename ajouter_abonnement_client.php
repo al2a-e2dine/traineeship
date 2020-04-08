@@ -101,17 +101,8 @@ if ($r) {
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="login_client.php">Vous avez déjà un compte? S'identifier!</a>
+                <a class="small" href="profil_client.php?id=<?= $c_id ?>">Mon profil</a>
               </div>
-              <?php
-              if(isset($_SESSION['admin_id'])){
-              ?>
-              <div class="text-center">
-                <a class="small" href="gestion_client.php">Gestion des clients</a>
-              </div>
-              <?php
-              }
-              ?>
               <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>
               </div>
