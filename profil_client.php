@@ -119,6 +119,7 @@ if (isset($_GET['id'])) {
                             </a>
                             <?php 
                             }
+
                               if(isset($_SESSION['admin_id'])){
                               ?>
                             <br>
