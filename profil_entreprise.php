@@ -105,7 +105,7 @@ if (isset($_GET['id'])) {
                               if(isset($_SESSION['entreprise_id'])){
                                 $s_entreprise_id=$_SESSION['entreprise_id'];
                               }
-                              if($s_admin_id || $s_entreprise_id==$id){
+                              if(isset($s_admin_id) || $s_entreprise_id==$id){
                               ?>
                             <a href="update_entreprise.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
@@ -135,6 +135,42 @@ if (isset($_GET['id'])) {
                                 </div>
                               </div>
                             </div>
+                            <br>
+                            <?php
+                                $q="SELECT * FROM `abonnemententreprise` where entreprise_id='$id' and archived=0";
+                                //echo $q;exit();
+                                $r=mysqli_query($dbc,$q);
+                                $row=mysqli_fetch_assoc($r);
+
+                                $date=date("Y-m-d");
+
+                                if($row){
+                                $date_fin=$row['date_fin'];
+
+                                $date_24 = date('Y-m-d', strtotime("-1 day", strtotime($date_fin)));
+
+                                if($date_fin==$date){
+                                  if(isset($_SESSION['entreprise_id'])){
+                                  ?>
+                                  <div class="alert alert-danger" role="alert">
+                                    <strong>Notification</strong>Votre abonnement est terminé
+                                  </div>
+                                  <?php
+                                }
+                                }
+
+                                if($date_24==$date){
+                                  if(isset($_SESSION['entreprise_id'])){
+                                  ?>
+                                  <div class="alert alert-warning" role="alert">
+                                    <strong>Notification</strong>Votre abonnement va terminé dans 24h
+                                  </div>
+                                  <?php
+                                }
+                              }
+                              }
+                                ?>
+
                         </div>
                     </div>
                 </div>

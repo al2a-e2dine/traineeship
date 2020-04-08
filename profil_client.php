@@ -112,7 +112,7 @@ if (isset($_GET['id'])) {
                               if(isset($_SESSION['client_id'])){
                                 $s_client_id=$_SESSION['client_id'];
                               }
-                              if($s_admin_id || $s_client_id==$id){
+                              if(isset($s_admin_id) || $s_client_id==$id){
                               ?>
                             <a href="update_client.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
