@@ -443,7 +443,7 @@ session_start();
 							  ?>
 						  <a href="#" class="btn btn-primary py-2">Postuler</a>
 								  <?php }else{ ?>
-									<a href="postuler.php?cid=<?= $cid ?>&id=<?= $row3['id'] ?>" class="btn btn-primary py-2">Postuler</a>
+									<a href="postuler.php?off_id=<?= $row3['id'] ?>" class="btn btn-primary py-2">Postuler</a>
 								  <?php } ?>
 		              </div>
 		            </div>

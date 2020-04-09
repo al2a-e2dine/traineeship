@@ -65,6 +65,7 @@ alert f 'abonnement_client.php' ki yekemlou drahmah
 alert f 'profil_client.php' ki yekemlou drahmah
 alert f 'abonnement_entreprise.php' ki yekemlou drahmah
 alert f 'profil_entreprise.php' ki yekemlou drahmah
+
 index.php
 offres.php
 Postuler
