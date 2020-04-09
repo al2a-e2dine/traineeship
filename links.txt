@@ -68,6 +68,8 @@ alert f 'profil_entreprise.php' ki yekemlou drahmah
 index.php
 offres.php
 Postuler
+gestion demande act/ref
+table f profil_client fih les offre
 register entreprie (ajouter une photo)
 Clients satisfaits
 Notre équipe
