@@ -2,13 +2,15 @@
 include_once 'connect.php';
 session_start();
 
-if (isset($_SESSION['entreprise_id'])) {
-  $e_id=$_SESSION['entreprise_id'];
+if (!isset($_SESSION['entreprise_id'])) {
+  header('location:index.php');
 }
+
+$e_id=$_SESSION['entreprise_id'];
 
 if (isset($_POST['submit'])) {
   
-  include 'upload_file.php';
+  include 'upload_file_entreprise.php';
 
   $q="INSERT INTO `abonnemententreprise`(`entreprise_id`,`recu`) VALUES ('$e_id','$file_name')";
   $r=mysqli_query($dbc,$q);

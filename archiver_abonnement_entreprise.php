@@ -23,6 +23,6 @@ if (!isset($_SESSION['admin_id'])) {
 
   $q="UPDATE `abonnemententreprise` SET `archived`='1' WHERE `id`='$id'";
 	$r=mysqli_query($dbc,$q);
-	header('location:abonnement_entreprise.php?true');
+	header('location:abonnement_entreprise.php');
 	
 ?>

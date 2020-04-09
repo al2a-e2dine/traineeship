@@ -39,24 +39,37 @@ update_entreprise.php?id=1 ==>(0gest-1admin-0client-1entreprise(get_id)) //done
 update_entreprise_pass.php?id=1 ==>(0gest-1admin-0client-1entreprise(get_id)) //done
 delete_entreprise.php?id=1 ==>(0gest-1admin-0client-0entreprise) //done
 ---------------------------------------------------
-gestion_off.php?id=1 (ngl3o get)
-add_off.php
-update_off.php?id=1
-dt_off.php?id=1
-delete_off.php?id=1
+gestion_off.php ==>(0gest-0admin-0client-1entreprise(session_id)) //done
+add_off.php ==>(0gest-0admin-0client-1entreprise(session_id)) //done
+update_off.php?id=1 ==>(0gest-0admin-0client-1entreprise(session_id)) //done
+dt_off.php?id=1 ==>(0gest-1admin-1client-1entreprise) //done
+delete_off.php?id=2 ==>(0gest-0admin-0client-1entreprise(ta3ah)) //done
 ---------------------------------------------------
-gestion_abonnement_client.php
-ajouter_abonnement_client.php
-accepter_abonnement_client.php
-refuser_abonnement_client.php
+gestion_abonnement_client.php ==>(0gest-1admin-0client-0entreprise) //done
+ajouter_abonnement_client.php ==>(0gest-0admin-1client-0entreprise) //done
+accepter_abonnement_client.php ==>(0gest-1admin-0client-0entreprise) //done
+refuser_abonnement_client.php ==>(0gest-1admin-0client-0entreprise) //done
 
-abonnement_client.php
-archiver_abonnement_client.php (mzl)
+abonnement_client.php ==>(0gest-1admin-0client-0entreprise) //done
+archiver_abonnement_client.php ==>(0gest-1admin-0client-0entreprise) //done
 ---------------------------------------------------
-gestion_abonnement_entreprise.php
-ajouter_abonnement_entreprise.php
-accepter_abonnement_entreprise.php
-refuser_abonnement_entreprise.php
+gestion_abonnement_entreprise.php ==>(0gest-1admin-0client-0entreprise) //done
+ajouter_abonnement_entreprise.php ==>(0gest-0admin-1client-0entreprise) //done
+accepter_abonnement_entreprise.php ==>(0gest-1admin-0client-0entreprise) //done
+refuser_abonnement_entreprise.php ==>(0gest-1admin-0client-0entreprise) //done
 
-abonnement_entreprise.php
-archiver_abonnement_entreprise.php
+abonnement_entreprise.php ==>(0gest-1admin-0client-0entreprise) //done
+archiver_abonnement_entreprise.php ==>(0gest-1admin-0client-0entreprise) //done
+---------------------------------------------------
+alert f 'abonnement_client.php' ki yekemlou drahmah
+alert f 'profil_client.php' ki yekemlou drahmah
+alert f 'abonnement_entreprise.php' ki yekemlou drahmah
+alert f 'profil_entreprise.php' ki yekemlou drahmah
+index.php
+offres.php
+Postuler
+register entreprie (ajouter une photo)
+Clients satisfaits
+Notre équipe
+footer
+sidebar

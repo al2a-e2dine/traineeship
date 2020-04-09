@@ -9,13 +9,13 @@ if (!isset($_SESSION['entreprise_id'])) {
 
 $ent_id=$_SESSION['entreprise_id'];
 
-if (isset($_GET['id'])) {
-  $id=$_GET['id'];
-}
+// if (isset($_GET['id'])) {
+//   $id=$_GET['id'];
+// }
 
-if($ent_id!=$id){
-  header('location:index.php');
-}
+// if($ent_id!=$id){
+//   header('location:index.php');
+// }
 
 ?>
 <!DOCTYPE html>
@@ -107,7 +107,7 @@ if($ent_id!=$id){
                   </thead>
                   <tbody>
                     <?php
-                    $q="SELECT * FROM `offre` WHERE id_entreprise='$id' and archived=0";
+                    $q="SELECT * FROM `offre` WHERE id_entreprise='$ent_id' and archived=0";
                     $r=mysqli_query($dbc,$q);
                     while ($row=mysqli_fetch_assoc($r)) {
                     ?>

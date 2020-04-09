@@ -92,7 +92,7 @@ if (!isset($_SESSION['admin_id'])) {
                       <th>Date de fin</th>
                       <th>reçu</th>
                       
-                      <th>Refuser</th>
+                      <th>Archiver</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -150,22 +150,22 @@ if (!isset($_SESSION['admin_id'])) {
 
                       
                       <td>
-                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#refuser_abonnement<?= $row['id'] ?>">Refuser</button>
+                        <button type="button" class="btn btn-dark btn-block" data-toggle="modal" data-target="#archiver_abonnement<?= $row['id'] ?>">Archiver</button>
 
                         <!-- Logout Modal-->
-                            <div class="modal fade" id="refuser_abonnement<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="archiver_abonnement<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Refuser un abonnement d'un client</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Archiver un abonnement d'un client</h5>
                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">×</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">Voulez-vous vraiment refuser cet abonnement de client ?</div>
+                                  <div class="modal-body">Voulez-vous vraiment Archiver cet abonnement de client ?</div>
                                   <div class="modal-footer">
                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Non</button>
-                                    <a class="btn btn-primary" href="refuser_abonnement_client.php?id=<?= $row['id'] ?>">Oui</a>
+                                    <a class="btn btn-primary" href="archiver_abonnement_client.php?id=<?= $row['id'] ?>">Oui</a>
                                   </div>
                                 </div>
                               </div>

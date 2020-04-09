@@ -2,13 +2,15 @@
 include_once 'connect.php';
 session_start();
 
-if (isset($_SESSION['client_id'])) {
-  $c_id=$_SESSION['client_id'];
+if (!isset($_SESSION['client_id'])) {
+  header('location:index.php');
 }
+
+$c_id=$_SESSION['client_id'];
 
 if (isset($_POST['submit'])) {
   
-  include 'upload_file.php';
+  include 'upload_file_client.php';
 
   $q="INSERT INTO `abonnementclient`(`client_id`,`recu`) VALUES ('$c_id','$file_name')";
   $r=mysqli_query($dbc,$q);

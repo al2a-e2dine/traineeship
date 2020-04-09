@@ -70,6 +70,17 @@ if (isset($_POST['submit'])) {
                 <?php
                 }
                 ?>
+
+              <?php
+                if (isset($_GET['err_img_type'])) {
+                ?>
+                <div class="alert alert-danger">
+                  <strong>Notification!</strong> Sorry, only JPG, JPEG, PNG & GIF files are allowed.
+                </div>
+                <?php
+                }
+                ?>
+              </div>
               </div>
               <form class="user" action="add_off.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
@@ -109,7 +120,7 @@ if (isset($_POST['submit'])) {
               </form>
               <hr>
                 <div class="text-center">
-                <a class="small" href="gestion_off.php?id=<?= $ent_id ?>">Gestion des offre d'emploi</a>
+                <a class="small" href="gestion_off.php">Gestion des offre d'emploi</a>
                 </div>
               <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>

@@ -1,7 +1,12 @@
+<?php
+include_once 'connect.php';
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Skillhunt - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Page d'accueil</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -30,20 +35,34 @@
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container-fluid px-md-4	">
-	      <a class="navbar-brand" href="index.html">Skillhunt</a>
+	      <a class="navbar-brand" href="index.php">Traineeship</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="browsejobs.html" class="nav-link">Browse Jobs</a></li>
-	          <li class="nav-item"><a href="candidates.html" class="nav-link">Canditates</a></li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <!-- <li class="nav-item cta mr-md-1"><a href="new-post.html" class="nav-link">Register</a></li>
-	          <li class="nav-item cta cta-colored"><a href="job-post.html" class="nav-link">Login</a></li> -->
+	          <li class="nav-item active"><a href="index.php" class="nav-link">Page d'accueil</a></li>
+	          <li class="nav-item"><a href="offres.php" class="nav-link">les offres d'emploi</a></li>
+	          <li class="nav-item"><a href="candidates.php" class="nav-link">Canditates</a></li>
+	          
+			  <?php
+			  if(isset($_SESSION['admin_id'])){
+				?>
+					<li class="nav-item btn btn-success mr-md-1"><a href="profil_admin.php?id=<?= $_SESSION['admin_id'] ?>" class="nav-link"><?= $_SESSION['admin_firstname']." ".$_SESSION['admin_lastname'] ?></a></li>
+			  <li class="nav-item btn btn-danger"><a href="logout.php" class="nav-link">Se déconnecter</a></li>
+			  
+				<?php }elseif(isset($_SESSION['client_id'])){ ?>
+				
+					<li class="nav-item btn btn-success mr-md-1"><a href="profil_client.php?id=<?= $_SESSION['client_id'] ?>" class="nav-link"><?= $_SESSION['client_firstname']." ".$_SESSION['client_lastname'] ?></a></li>
+			  <li class="nav-item btn btn-danger"><a href="logout.php" class="nav-link">Se déconnecter</a></li>
+			  
+			  <?php }elseif(isset($_SESSION['entreprise_id'])){ ?>
+				<li class="nav-item btn btn-success mr-md-1"><a href="profil_entreprise.php?id=<?= $_SESSION['entreprise_id'] ?>" class="nav-link"><?= $_SESSION['entreprise_denomination'] ?></a></li>
+			  <li class="nav-item btn btn-danger"><a href="logout.php" class="nav-link">Se déconnecter</a></li>
+			  <?php }else{ ?>
+			  
+			  
 			  <li>
 			  <div class="dropdown">
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -69,7 +88,7 @@
 				</div>
 			</div>
 			  </li>
-
+			  <?php } ?>
 	        </ul>
 	      </div>
 	    </div>
@@ -82,19 +101,24 @@
       	<div class="row d-md-flex no-gutters slider-text align-items-center justify-content-center">
 	        <div class="col-md-10 d-flex align-items-center ftco-animate">
 	        	<div class="text text-center pt-5 mt-md-5">
-	        		<p class="mb-4">Find Job, Employment, and Career Opportunities</p>
-	            <h1 class="mb-5">The Eassiest Way to Get Your New Job</h1>
+	        		<p class="mb-4">Trouver des opportunités d'emploi, d'emploi et de carrière</p>
+	            <h1 class="mb-5">La façon la plus simple d'obtenir votre nouvel emploi</h1>
 							<div class="ftco-counter ftco-no-pt ftco-no-pb">
 			        	<div class="row">
 				          <div class="col-md-4 d-flex justify-content-center counter-wrap ftco-animate">
 				            <div class="block-18">
 				              <div class="text d-flex">
 				              	<div class="icon mr-2">
-				              		<span class="flaticon-worldwide"></span>
-				              	</div>
+				              		<span class="flaticon-resume"></span>
+								  </div>
+								  <?php
+								  $q="SELECT * FROM `offre` where archived=0";
+								  $r=mysqli_query($dbc,$q);
+								  $num=mysqli_num_rows($r);
+								  ?>
 				              	<div class="desc text-left">
-					                <strong class="number" data-number="46">0</strong>
-					                <span>Countries</span>
+					                <strong class="number" data-number="<?= $num ?>">0</strong>
+					                <span>Offres</span>
 				                </div>
 				              </div>
 				            </div>
@@ -104,10 +128,15 @@
 				              <div class="text d-flex">
 				              	<div class="icon mr-2">
 				              		<span class="flaticon-visitor"></span>
-				              	</div>
+								  </div>
+								  <?php
+								  $q1="SELECT * FROM `entreprise` where archived=0";
+								  $r1=mysqli_query($dbc,$q1);
+								  $num1=mysqli_num_rows($r1);
+								  ?>
 				              	<div class="desc text-left">
-					                <strong class="number" data-number="450">0</strong>
-					                <span>Companies</span>
+					                <strong class="number" data-number="<?= $num1 ?>">0</strong>
+					                <span>Entreprise</span>
 					              </div>
 				              </div>
 				            </div>
@@ -117,41 +146,40 @@
 				              <div class="text d-flex">
 				              	<div class="icon mr-2">
 				              		<span class="flaticon-resume"></span>
-				              	</div>
+								  </div>
+								  <?php
+								  $q2="SELECT * FROM `client` where archived=0";
+								  $r2=mysqli_query($dbc,$q2);
+								  $num2=mysqli_num_rows($r2);
+								  ?>
 				              	<div class="desc text-left">
-					                <strong class="number" data-number="80000">0</strong>
-					                <span>Active Employees</span>
+					                <strong class="number" data-number="<?= $num2 ?>">0</strong>
+					                <span>Employés</span>
 					              </div>
 				              </div>
 				            </div>
 				          </div>
 				        </div>
-			        </div>
-							<div class="ftco-search my-md-5">
+					</div>
+					
+							<!-- <div class="ftco-search my-md-5">
 								<div class="row">
 			            <div class="col-md-12 nav-link-wrap">
 				            <div class="nav nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-				              <a class="nav-link active mr-md-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Find a Job</a>
+				              <a class="nav-link active mr-md-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Trouver un travail</a>
 
-				              <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Find a Candidate</a>
+				              <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Trouver un candidat</a>
 
 				            </div>
-				          </div>
+						  </div>
+						  
 				          <div class="col-md-12 tab-wrap">
 				            
 				            <div class="tab-content p-4" id="v-pills-tabContent">
 
 				              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-				              	<form action="#" class="search-job">
+				              	<form action="index" class="search-job">
 				              		<div class="row no-gutters">
-				              			<div class="col-md mr-md-2">
-				              				<div class="form-group">
-					              				<div class="form-field">
-					              					<div class="icon"><span class="icon-briefcase"></span></div>
-									                <input type="text" class="form-control" placeholder="eg. Garphic. Web Developer">
-									              </div>
-								              </div>
-				              			</div>
 				              			<div class="col-md mr-md-2">
 				              				<div class="form-group">
 				              					<div class="form-field">
@@ -169,18 +197,10 @@
 									              </div>
 								              </div>
 				              			</div>
-				              			<div class="col-md mr-md-2">
-				              				<div class="form-group">
-				              					<div class="form-field">
-					              					<div class="icon"><span class="icon-map-marker"></span></div>
-									                <input type="text" class="form-control" placeholder="Location">
-									              </div>
-								              </div>
-				              			</div>
 				              			<div class="col-md">
 				              				<div class="form-group">
 				              					<div class="form-field">
-								                	<button type="submit" class="form-control btn btn-primary">Search</button>
+								                	<button type="submit" class="form-control btn btn-primary">Chercher</button>
 									              </div>
 								              </div>
 				              			</div>
@@ -193,14 +213,6 @@
 				              		<div class="row">
 				              			<div class="col-md">
 				              				<div class="form-group">
-					              				<div class="form-field">
-					              					<div class="icon"><span class="icon-user"></span></div>
-									                <input type="text" class="form-control" placeholder="eg. Adam Scott">
-									              </div>
-								              </div>
-				              			</div>
-				              			<div class="col-md">
-				              				<div class="form-group">
 				              					<div class="form-field">
 					              					<div class="select-wrap">
 							                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
@@ -219,32 +231,26 @@
 				              			<div class="col-md">
 				              				<div class="form-group">
 				              					<div class="form-field">
-					              					<div class="icon"><span class="icon-map-marker"></span></div>
-									                <input type="text" class="form-control" placeholder="Location">
-									              </div>
-								              </div>
-				              			</div>
-				              			<div class="col-md">
-				              				<div class="form-group">
-				              					<div class="form-field">
-									                <button type="submit" class="form-control btn btn-primary">Search</button>
+									                <button type="submit" class="form-control btn btn-primary">Chercher</button>
 									              </div>
 								              </div>
 				              			</div>
 				              		</div>
 				              	</form>
-				              </div>
+							  </div>
+							  
 				            </div>
-				          </div>
+						  </div>
 				        </div>
-			        </div>
+					</div> -->
+					----
 	          </div>
 	        </div>
 	    	</div>
       </div>
     </div>
 
-    <section class="ftco-section ftco-no-pt ftco-no-pb">
+    <!-- <section class="ftco-section ftco-no-pt ftco-no-pb">
     	<div class="container">
     		<div class="row">
     			<div class="col-md-12">
@@ -258,7 +264,7 @@
     							</div>
     						</div>
     						<div class="col-md-2">
-    							<div class="top-category text-center active">
+    							<div class="top-category text-center">
     								<h3><a href="#">Education &amp; Training</a></h3>
     								<span class="icon flaticon-mortarboard"></span>
     								<p><span class="number">143</span> <span>Open position</span></p>
@@ -297,9 +303,9 @@
     			</div>
     		</div>
     	</div>
-    </section>
+    </section> -->
 
-    <section class="ftco-section">
+    <!-- <section class="ftco-section">
     	<div class="container">
     		<div class="row justify-content-center mb-5">
           <div class="col-md-7 heading-section text-center ftco-animate">
@@ -342,9 +348,9 @@
         	</div>
         </div>
     	</div>
-    </section>
+    </section> -->
 
-    <section class="ftco-section services-section">
+    <!-- <section class="ftco-section services-section">
       <div class="container">
         <div class="row d-flex">
           <div class="col-md-3 d-flex align-self-stretch ftco-animate">
@@ -385,7 +391,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
 		<section class="ftco-section bg-light">
 			<div class="container">
@@ -393,110 +399,64 @@
 					<div class="col-lg-9 pr-lg-5">
 						<div class="row justify-content-center pb-3">
 		          <div class="col-md-12 heading-section ftco-animate">
-		          	<span class="subheading">Recently Added Jobs</span>
-		            <h2 class="mb-4">Featured Jobs Posts For This Week</h2>
+		          	<span class="subheading">Traineeship</span>
+		            <h2 class="mb-4">Offres d'emploi</h2>
 		          </div>
 		        </div>
 						<div class="row">
 						<!-- ---------- -->
+								<?php
+								  $q3="SELECT * FROM `offre` where archived=0 limit 4";
+								  $r3=mysqli_query($dbc,$q3);
+								  while($row3=mysqli_fetch_assoc($r3)){
+									  $e_id=$row3['id_entreprise'];
+
+									$q="SELECT * FROM `entreprise` where id='$e_id'";
+									$r=mysqli_query($dbc,$q);
+									$row=mysqli_fetch_assoc($r)
+								?>
 							<div class="col-md-12 ftco-animate">
 		            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
 		              <div class="one-third mb-4 mb-md-0">
 		                <div class="job-post-item-header align-items-center">
-		                	<span class="subadge">Partime</span>
-		                  <h2 class="mr-3 text-black"><a href="#">Frontend Development</a></h2>
+		                	<span class="subadge"><?= $row['denomination'] ?></span>
+		                  <h2 class="mr-3 text-black">
+							  <?php
+							  if(!isset($_SESSION['admin_id']) and !isset($_SESSION['client_id']) and !isset($_SESSION['entreprise_id'])){
+							  ?>
+						  <a href=""><?= $row3['title'] ?></a>
+								  <?php }else{ ?>
+								  <a href="dt_off.php?id=<?= $row3['id'] ?>"><?= $row3['title'] ?></a>
+								  <?php } ?>
+						</h2>
 		                </div>
 		                <div class="job-post-item-body d-block d-md-flex">
-		                  <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
-		                  <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+		                  <div class="mr-3"><b>Siege social :</b> <?= $row['siege_social'] ?></div>
+		                  <div class="mr-3"><b>Numéro téléphone :</b> <?= $row['phone'] ?></div>
 		                </div>
 		              </div>
 
 		              <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-		              	<div>
-			                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-			                	<span class="icon-heart"></span>
-			                </a>
-		                </div>
-		                <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+						
+						<?php
+							  if(!isset($_SESSION['admin_id']) and !isset($_SESSION['client_id']) and !isset($_SESSION['entreprise_id'])){
+							  ?>
+						  <a href="#" class="btn btn-primary py-2">Postuler</a>
+								  <?php }else{ ?>
+									<a href="postuler.php?cid=<?= $cid ?>&id=<?= $row3['id'] ?>" class="btn btn-primary py-2">Postuler</a>
+								  <?php } ?>
 		              </div>
 		            </div>
-		          </div><!-- end -->
-				  <div class="col-md-12 ftco-animate">
-		            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-		              <div class="one-third mb-4 mb-md-0">
-		                <div class="job-post-item-header align-items-center">
-		                	<span class="subadge">Partime</span>
-		                  <h2 class="mr-3 text-black"><a href="#">Frontend Development</a></h2>
-		                </div>
-		                <div class="job-post-item-body d-block d-md-flex">
-		                  <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
-		                  <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-		                </div>
-		              </div>
+				  </div>
+					<?php } ?>
 
-		              <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-		              	<div>
-			                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-			                	<span class="icon-heart"></span>
-			                </a>
-		                </div>
-		                <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
-		              </div>
-		            </div>
-		          </div><!-- end -->
-				  <div class="col-md-12 ftco-animate">
-		            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-		              <div class="one-third mb-4 mb-md-0">
-		                <div class="job-post-item-header align-items-center">
-		                	<span class="subadge">Partime</span>
-		                  <h2 class="mr-3 text-black"><a href="#">Frontend Development</a></h2>
-		                </div>
-		                <div class="job-post-item-body d-block d-md-flex">
-		                  <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
-		                  <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-		                </div>
-		              </div>
-
-		              <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-		              	<div>
-			                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-			                	<span class="icon-heart"></span>
-			                </a>
-		                </div>
-		                <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
-		              </div>
-		            </div>
-		          </div><!-- end -->
-				  <div class="col-md-12 ftco-animate">
-		            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-		              <div class="one-third mb-4 mb-md-0">
-		                <div class="job-post-item-header align-items-center">
-		                	<span class="subadge">Partime</span>
-		                  <h2 class="mr-3 text-black"><a href="#">Frontend Development</a></h2>
-		                </div>
-		                <div class="job-post-item-body d-block d-md-flex">
-		                  <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
-		                  <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-		                </div>
-		              </div>
-
-		              <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-		              	<div>
-			                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-			                	<span class="icon-heart"></span>
-			                </a>
-		                </div>
-		                <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
-		              </div>
-		            </div>
-		          </div><!-- end -->
+				  
 		        </div>
 		      </div>
 		      <div class="col-lg-3 sidebar">
 		        <div class="row justify-content-center pb-3">
 		          <div class="col-md-12 heading-section ftco-animate">
-		            <h2 class="mb-4">Top Recruitments</h2>
+		            <h2 class="mb-4">Top Recrutements</h2>
 		          </div>
 		        </div>
 		        <div class="sidebar-box ftco-animate">
@@ -504,36 +464,9 @@
 			        	<a href="#" class="company-wrap"><img src="images/company-1.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
 			        	<div class="text p-3">
 			        		<h3><a href="#">Company Company</a></h3>
-			        		<p><span class="number">500</span> <span>Open position</span></p>
+			        		<p><span class="number">500</span> <span>Offre</span></p>
 			        	</div>
 		        	</div>
-		        </div>
-		        <div class="sidebar-box ftco-animate">
-		        	<div class="">
-			        	<a href="#" class="company-wrap"><img src="images/company-2.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
-			        	<div class="text p-3">
-			        		<h3><a href="#">Facebook Company</a></h3>
-			        		<p><span class="number">700</span> <span>Open position</span></p>
-			        	</div>
-			        </div>
-		        </div>
-		        <div class="sidebar-box ftco-animate">
-		        	<div class="">
-			        	<a href="#" class="company-wrap"><img src="images/company-3.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
-			        	<div class="text p-3">
-			        		<h3><a href="#">IT Programming INC</a></h3>
-			        		<p><span class="number">700</span> <span>Open position</span></p>
-			        	</div>
-			        </div>
-		        </div>
-		        <div class="sidebar-box ftco-animate">
-		        	<div class="">
-			        	<a href="#" class="company-wrap"><img src="images/company-4.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
-			        	<div class="text p-3">
-			        		<h3><a href="#">IT Programming INC</a></h3>
-			        		<p><span class="number">700</span> <span>Open position</span></p>
-			        	</div>
-			        </div>
 		        </div>
 		      </div>
 				</div>
@@ -546,8 +479,8 @@
       <div class="container">
         <div class="row justify-content-center mb-4">
           <div class="col-md-7 text-center heading-section ftco-animate">
-          	<span class="subheading">Testimonial</span>
-            <h2 class="mb-4">Happy Clients</h2>
+          	<span class="subheading">Traineeship</span>
+            <h2 class="mb-4">Clients satisfaits</h2>
           </div>
         </div>
         <div class="row ftco-animate">
@@ -633,8 +566,8 @@
     	<div class="container">
     		<div class="row justify-content-center pb-3">
           <div class="col-md-10 heading-section heading-section-white text-center ftco-animate">
-          	<span class="subheading">Candidates</span>
-            <h2 class="mb-4">Latest Candidates</h2>
+          	<span class="subheading">Traineeship</span>
+            <h2 class="mb-4">Notre équipe</h2>
           </div>
         </div>
     	</div>
@@ -690,7 +623,7 @@
     	</div>
     </section>
 
-    <section class="ftco-section bg-light">
+    <!-- <section class="ftco-section bg-light">
       <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section text-center ftco-animate">
@@ -757,9 +690,9 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 		
-		<section class="ftco-section-parallax">
+		<!-- <section class="ftco-section-parallax">
       <div class="parallax-img d-flex align-items-center">
         <div class="container">
           <div class="row d-flex justify-content-center">
@@ -780,14 +713,14 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
         <div class="row mb-5">
         	<div class="col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Skillhunt Jobboard</h2>
+              <h2 class="ftco-heading-2">Traineeship</h2>
               <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -796,7 +729,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-md">
+          <!-- <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Employers</h2>
               <ul class="list-unstyled">
@@ -832,7 +765,7 @@
                 <li><a href="#" class="pb-1 d-block">Checkout</a></li>
               </ul>
             </div>
-          </div>
+          </div> -->
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
@@ -850,8 +783,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
           </div>
         </div>
       </div>
