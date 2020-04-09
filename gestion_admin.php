@@ -2,7 +2,7 @@
 include_once 'connect.php';
 
 session_start();
-
+//echo $_SESSION['admin_id']; exit();
 if (!isset($_SESSION['admin_id'])) {
   header('location:login_admin.php');
 }else{

@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
 
       $token = 'qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM0123456789!$/()*';
 			$token = str_shuffle($token);
-      $token = substr($token, 0, 10);
+      $token = substr($token, 0, 30);
 
       $message="
       Veuillez cliquer sur le lien ci-dessous:

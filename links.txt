@@ -1,40 +1,62 @@
-http://localhost/traineeship/index.php
+index.php (1gest-1admin-1client-1entreprise) //done
 ---------------------------------------------------
-http://localhost/traineeship/register_admin.php
-http://localhost/traineeship/confirm_client.php?email=&token=
+register_admin.php ==>(1gest(pin)-1admin(pin)-1client(pin)-1entreprise(pin)) //done
+confirm_admin.php?email=&token= ==>(1gest-1admin-0client-0entreprise) //done
 
-http://localhost/traineeship/login_admin.php
-http://localhost/traineeship/forgot_admin_pass.php
-http://localhost/traineeship/update_admin_fgpass.php?email=&token=
+login_admin.php ==>(1gest-0admin-0client-0entreprise) //done
+forgot_admin_pass.php ==>(1gest-0admin-0client-0entreprise) //done
+update_admin_fgpass.php?email=&token= ==>(1gest-0admin-0client-0entreprise) //done
 
-http://localhost/traineeship/gestion_admin.php
-http://localhost/traineeship/profil_admin.php?id=1
-http://localhost/traineeship/update_admin.php?id=1
-http://localhost/traineeship/update_admin_pass.php?id=1
-http://localhost/traineeship/delete_admin.php?id=1
+gestion_admin.php ==>(0gest-1admin(pin)-0client-0entreprise) //done
+profil_admin.php?id= ==>(0gest-1admin-0client-0entreprise) //done
+update_admin.php?id= ==>(0gest-1admin(id=1 and get_id)-0client-0entreprise) //done
+update_admin_pass.php?id= ==>(0gest-1admin(id=1 and get_id)-0client-0entreprise) //done
+delete_admin.php?id= ==>(0gest-1admin(id=1)-0client-0entreprise) //done
 ---------------------------------------------------
-http://localhost/traineeship/register_client.php
-http://localhost/traineeship/confirm_client.php?email=&token=
+register_client.php ==>(1gest-1admin-0client-0entreprise) //done
+confirm_client.php?email=&token= ==>(1gest-1admin-0client-0entreprise) //done
 
-http://localhost/traineeship/login_client.php
-http://localhost/traineeship/forgot_client_pass.php
-http://localhost/traineeship/update_client_fgpass.php?email=&token=
+login_client.php ==>(1gest-1admin-0client-0entreprise) //done
+forgot_client_pass.php ==>(1gest-1admin-0client-0entreprise) //done
+update_client_fgpass.php?email=&token= ==>(1gest-1admin-0client-0entreprise) //done
 
-http://localhost/traineeship/gestion_client.php
-http://localhost/traineeship/profil_client.php?id=1
-http://localhost/traineeship/update_client.php?id=1
-http://localhost/traineeship/update_client_pass.php?id=1
-http://localhost/traineeship/delete_client.php?id=1
+gestion_client.php ==>(0gest-1admin-0client-0entreprise) //done
+profil_client.php?id=1 ==>(0gest-1admin-1client-1entreprise) //done
+update_client.php?id=1 ==>(0gest-1admin-1client(get_id)-0entreprise) //done
+update_client_pass.php?id=1 ==>(0gest-1admin-1client(get_id)-0entreprise) //done
+delete_client.php?id=1 ==>(0gest-1admin-0client-0entreprise) //done
 ---------------------------------------------------
-http://localhost/traineeship/register_entreprise.php
-http://localhost/traineeship/confirm_client.php?email=&token=
+register_entreprise.php ==>(1gest-1admin-0client-0entreprise) //done
+confirm_client.php?email=&token= ==>(1gest-1admin-0client-0entreprise) //done
 
-http://localhost/traineeship/login_entreprise.php
-http://localhost/traineeship/forgot_entreprise_pass.php
-http://localhost/traineeship/update_entreprise_fgpass.php?email=&token=
+login_entreprise.php ==>(1gest-1admin-0client-0entreprise) //done
+forgot_entreprise_pass.php ==>(1gest-1admin-0client-0entreprise)
+update_entreprise_fgpass.php?email=&token= ==>(1gest-1admin-0client-0entreprise)
 
-http://localhost/traineeship/gestion_entreprise.php
-http://localhost/traineeship/profil_entreprise.php?id=1
-http://localhost/traineeship/update_entreprise.php?id=1
-http://localhost/traineeship/update_entreprise_pass.php?id=1
-http://localhost/traineeship/delete_entreprise.php?id=1
+gestion_entreprise.php ==>(0gest-1admin-0client-0entreprise) //done
+profil_entreprise.php?id=1 ==>(0gest-1admin-1client-1entreprise) //done
+update_entreprise.php?id=1 ==>(0gest-1admin-0client-1entreprise(get_id)) //done
+update_entreprise_pass.php?id=1 ==>(0gest-1admin-0client-1entreprise(get_id)) //done
+delete_entreprise.php?id=1 ==>(0gest-1admin-0client-0entreprise) //done
+---------------------------------------------------
+gestion_off.php?id=1 (ngl3o get)
+add_off.php
+update_off.php?id=1
+dt_off.php?id=1
+delete_off.php?id=1
+---------------------------------------------------
+gestion_abonnement_client.php
+ajouter_abonnement_client.php
+accepter_abonnement_client.php
+refuser_abonnement_client.php
+
+abonnement_client.php
+archiver_abonnement_client.php (mzl)
+---------------------------------------------------
+gestion_abonnement_entreprise.php
+ajouter_abonnement_entreprise.php
+accepter_abonnement_entreprise.php
+refuser_abonnement_entreprise.php
+
+abonnement_entreprise.php
+archiver_abonnement_entreprise.php

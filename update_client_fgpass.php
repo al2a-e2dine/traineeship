@@ -1,8 +1,13 @@
 <?php
 include_once 'connect.php';
+session_start();
+
+if(isset($_SESSION['client_id']) || isset($_SESSION['entreprise_id'])){
+  header('location:index.php');
+}
 
 if (!isset($_GET['email']) || !isset($_GET['token'])) {
-  header('Location: register_client.php');
+  header('Location: index.php');
 }else{
 
   $email = $_GET['email'];

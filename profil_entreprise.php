@@ -3,6 +3,8 @@ include_once 'connect.php';
 
 session_start();
 
+if(isset($_SESSION['admin_id']) || isset($_SESSION['client_id']) || isset($_SESSION['entreprise_id'])){
+
 if (isset($_GET['id'])) {
   $id=$_GET['id'];
 
@@ -14,6 +16,10 @@ if (isset($_GET['id'])) {
     header('location:index.php');
   }
   
+}else{
+  header('location:index.php');
+}
+
 }else{
   header('location:index.php');
 }
@@ -105,7 +111,7 @@ if (isset($_GET['id'])) {
                               if(isset($_SESSION['entreprise_id'])){
                                 $s_entreprise_id=$_SESSION['entreprise_id'];
                               }
-                              if(isset($s_admin_id) || $s_entreprise_id==$id){
+                              if(isset($s_admin_id) || (isset($s_entreprise_id) and $s_entreprise_id==$id)){
                               ?>
                             <a href="update_entreprise.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>

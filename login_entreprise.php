@@ -1,5 +1,10 @@
 <?php
 include_once 'connect.php';
+session_start();
+
+if(isset($_SESSION['client_id']) || isset($_SESSION['entreprise_id'])){
+  header('location:index.php');
+}
 
 if (isset($_POST['submit'])) {
   $email=$_POST['email'];
@@ -26,7 +31,7 @@ if (isset($_POST['submit'])) {
     $_SESSION['entreprise_email']=$row['email'];
     $_SESSION['entreprise_password']=$row['password'];
     $_SESSION['entreprise_date']=$row['date'];
-    header('location:profil_entreprise.php?id='.$admin_id);
+    header('location:profil_entreprise.php?id='.$entreprise_id);
 
     }else{
       $msg="L'email n'est pas activé";
@@ -114,6 +119,15 @@ if (isset($_POST['submit'])) {
                   <div class="text-center">
                     <a class="small" href="register_entreprise.php">Créer un compte!</a>
                   </div>
+                  <?php
+              if(isset($_SESSION['admin_id'])){
+              ?>
+              <div class="text-center">
+                <a class="small" href="gestion_entreprise.php">Gestion des entreprises</a>
+              </div>
+              <?php
+              }
+              ?>
                   <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>
               </div>

@@ -1,5 +1,10 @@
 <?php
 include_once 'connect.php';
+session_start();
+
+if(isset($_SESSION['admin_id']) || isset($_SESSION['client_id']) || isset($_SESSION['entreprise_id'])){
+  header('location:index.php');
+}
 
 if (isset($_POST['submit'])) {
   $email=$_POST['email'];
@@ -15,7 +20,7 @@ if (isset($_POST['submit'])) {
   $admin_id=$row['id'];
     if ($row['isEmailConfirmed']==1) {
       
-    session_start();
+    //session_start();
     $_SESSION['admin_id']=$row['id'];
     $_SESSION['admin_firstname']=$row['firstname'];
     $_SESSION['admin_lastname']=$row['lastname'];

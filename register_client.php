@@ -2,6 +2,10 @@
 include_once 'connect.php';
 session_start();
 
+if(isset($_SESSION['client_id']) || isset($_SESSION['entreprise_id'])){
+  header('location:index.php');
+}
+
 if (isset($_POST['submit'])) {
   $firstname=$_POST['firstname'];
   $lastname=$_POST['lastname'];
@@ -28,7 +32,7 @@ if (isset($_POST['submit'])) {
       
       $token = 'qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM0123456789!$/()*';
 			$token = str_shuffle($token);
-      $token = substr($token, 0, 10);
+      $token = substr($token, 0, 30);
 
       $message="
       Veuillez cliquer sur le lien ci-dessous:

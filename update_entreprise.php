@@ -149,6 +149,15 @@ if (isset($_SESSION['admin_id'])) {
               <div class="text-center">
                 <a class="small" href="profil_entreprise.php?id=<?= $id ?>">Retour au compte personnel</a>
               </div>
+              <?php
+              if(isset($_SESSION['admin_id'])){
+              ?>
+              <div class="text-center">
+                <a class="small" href="gestion_entreprise.php">Gestion des entreprises</a>
+              </div>
+              <?php
+              }
+              ?>
               <div class="text-center">
                 <a class="small" href="index.php">Page d'accueil</a>
               </div>

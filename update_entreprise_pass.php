@@ -134,7 +134,7 @@ if($num0==1){
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="profil_admin.php?id=<?= $id ?>">Retour au compte personnel</a>
+                <a class="small" href="profil_entreprise.php?id=<?= $id ?>">Retour au compte personnel</a>
               </div>
               <?php
               if(isset($_SESSION['admin_id'])){
