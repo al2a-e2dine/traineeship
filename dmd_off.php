@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
     include 'upload_file_dmd.php';
     
     $q="INSERT INTO `demandeoffre`(`client_id`, `offre_id`, `cv`, `lettre`) VALUES ('$c_id','$off_id','$file_name','$file_name1')";
-    
+        
     $r=mysqli_query($dbc,$q);
    
     
