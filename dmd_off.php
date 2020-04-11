@@ -2,12 +2,18 @@
 include_once 'connect.php';
 session_start();
 
-/*if(isset($_SESSION['client_id'])){
+if(isset($_GET['id'])){
+  $off_id=$_GET['id'];
+}else{
   header('location:index.php');
-}*/
+}
 
-$c_id=$_SESSION['client_id'];
-$off_id=$_GET['off_id'];
+if(isset($_SESSION['client_id'])){
+  $c_id=$_SESSION['client_id'];
+}else{
+  header('location:index.php');
+}
+
 
 if (isset($_POST['submit'])) {
     
@@ -74,7 +80,7 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
               </div>
-              <form class="user" action="dmd_off.php" method="post" enctype="multipart/form-data">
+              <form class="user" action="dmd_off.php?id=<?= $off_id ?>" method="post" enctype="multipart/form-data">
              
               <div class="form-group">
                     <label for="exampleFormControlFile1">CV</label>
