@@ -7,21 +7,27 @@ session_start();
 }*/
 
 $c_id=$_SESSION['client_id'];
+$off_id=$_GET['off_id'];
 
 if (isset($_POST['submit'])) {
-    $id=$_GET['off_id'];
-  include 'upload_cv.php';
+    
+    include 'upload_file_dmd.php';
+    
+    $q="INSERT INTO `demandeoffre`(`client_id`, `offre_id`, `cv`, `lettre`) VALUES ('$c_id','$off_id','$file_name','$file_name1')";
+    echo $q;
+    exit;
+    $r=mysqli_query($dbc,$q);
+   
+    
+  
+  if ($r) {
+    $msg= "abonnement ajoutée";
+  }else{
+    $msg= "abonnement non ajoutée";
+  }
+  
+  }
 
-  $q="INSERT INTO `demandeoffre`(`client_id`, `offre_id`, `cv`, `lettre`) VALUES ('$c_id','$id','$file_name','$file_name2')";
-  $r=mysqli_query($dbc,$q);
-
-if ($r) {
-  $msg= "offre demandé";
-}else{
-  $msg= "offre non demandé";
-}
-
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,11 +84,11 @@ if ($r) {
 
               <div class="form-group">
                     <label for="exampleFormControlFile1">Lettre de motivation</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fileToUpload" required>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fileToUpload1" required>
               </div> 
 
-                                  
-                <input type="submit" name="submit" class="btn btn-user btn-block btn-primary" value="Postuler">
+                 <!-- <input type="hidden" name="c_id" value="<?= $id ?>"> -->
+                 <input type="submit" name="submit" class="btn btn-user btn-block btn-primary" value="Confirmer le paiement">
               </form>
               <hr>
               <div class="text-center">
