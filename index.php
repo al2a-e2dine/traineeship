@@ -469,7 +469,7 @@ session_start();
 		        	<div class="">
 			        	<a href="profil_entreprise.php?id=<?= $row['id'] ?>" class="company-wrap"><img src="<?= $row['img'] ?>" class="img-fluid" alt="Colorlib Free Template"></a>
 			        	<div class="text p-3">
-			        		<h3><a href="profil_entreprise.php?id=<?= $row['id'] ?>"><?php $row['denomination']?></a></h3>
+			        		<h3><a href="profil_entreprise.php?id=<?= $row['id'] ?>"><h3><?php $row['denomination']?></h3></a>
 			        		<!-- <p><span class="number">500</span> <span>Offres</span></p> -->
 			        	</div>
 		        	</div>
