@@ -2,14 +2,24 @@
 include_once 'connect.php';
 session_start();
 
-if(isset($_SESSION['client_id'])){
+/*if(isset($_SESSION['client_id'])){
   header('location:index.php');
-}
+}*/
+
+$c_id=$_SESSION['client_id'];
 
 if (isset($_POST['submit'])) {
-  $client_id=$_POST['client_id'];
-  $offre_id	=$_POST['offre_id'];
-  
+    $id=$_GET['off_id'];
+  include 'upload_cv.php';
+
+  $q="INSERT INTO `demandeoffre`(`client_id`, `offre_id`, `cv`, `lettre`) VALUES ('$c_id','$id','$file_name','$file_name2')";
+  $r=mysqli_query($dbc,$q);
+
+if ($r) {
+  $msg= "offre demandé";
+}else{
+  $msg= "offre non demandé";
+}
 
 }
 ?>
@@ -48,7 +58,7 @@ if (isset($_POST['submit'])) {
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Ajouter un client</h1>
+                <h1 class="h4 text-gray-900 mb-4">Demander un offre</h1>
                 <?php
                 if (isset($msg)) {
                 ?>
@@ -59,77 +69,20 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
               </div>
-              <form class="user" action="register_client.php" method="post">
+              <form class="user" action="dmd_off.php" method="post" enctype="multipart/form-data">
              
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <!-- <label>Nom</label> -->
-                    <input type="text" class="form-control form-control-user" placeholder="Nom" name="firstname" required>
-                  </div>
-                  <div class="col-sm-6">
-                    <!-- <label>Prénom</label> -->
-                    <input type="text" class="form-control form-control-user" placeholder="Prénom" name="lastname" required>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="sel1">Genre</label>
-                  <select class="form-control" id="sel1" name="sexe" required>
-                    <option></option>
-                    <option value="Homme">Homme</option>
-                    <option value="Femme">Femme</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Date de naissance</label>
-                  <input type="date" class="form-control form-control-user" placeholder="Date de naissance" name="dn" required>
-                </div>
-                <div class="form-group">
-                  <!-- <label>Numéro CNI</label> -->
-                  <input type="number" class="form-control form-control-user" placeholder="Numéro CNI" name="n_cni" required>
-                </div>
-                <div class="form-group">
-                  <!-- <label>Etablissement</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Etablissement" name="eta" required>
-                </div>
-                <div class="form-group">
-                  <!-- <label>Adresse postale</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Adresse postale" name="adr" required>
-                </div>
-                <div class="form-group">
-                  <!-- <label>Niveau d’étude</label> -->
-                  <input type="text" class="form-control form-control-user" placeholder="Niveau d’étude" name="nv_etd" required>
-                </div>
-                <div class="form-group">
-                  <label for="sel1">Specialite</label>
-                  <select class="form-control" id="sel1" name="Specialite" required>
-                    <option></option>
-                    <option value="s1">Specialite 1</option>
-                    <option value="s2">Specialite 2</option>
-                    <option value="s3">Specialite 3</option>
-                    <option value="s4">Specialite 4</option>
-                    <option value="s5">Specialite 5</option>
-                    <option value="s6">Specialite 6</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <!-- <label>Numéro de téléphone</label> -->
-                  <input type="number" class="form-control form-control-user" placeholder="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                  <!-- <label>Adresse e-mail</label> -->
-                  <input type="email" class="form-control form-control-user" placeholder="Adresse e-mail" name="email" required>
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <!-- <label>Mot de passe</label> -->
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de passe" name="password" required>
-                  </div>
-                  <div class="col-sm-6">
-                    <!-- <label>Répéter le mot de passe</label> -->
-                    <input type="password" class="form-control form-control-user" placeholder="Répéter le mot de passe" name="cpassword" required>
-                  </div>
-                </div>
-                <input type="submit" name="submit" class="btn btn-user btn-block btn-primary" value="Créer un compte">
+              <div class="form-group">
+                    <label for="exampleFormControlFile1">CV</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fileToUpload" required>
+              </div>   
+
+              <div class="form-group">
+                    <label for="exampleFormControlFile1">Lettre de motivation</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fileToUpload" required>
+              </div> 
+
+                                  
+                <input type="submit" name="submit" class="btn btn-user btn-block btn-primary" value="Postuler">
               </form>
               <hr>
               <div class="text-center">
