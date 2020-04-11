@@ -118,11 +118,13 @@ if (isset($_GET['id'])) {
                               if(isset($_SESSION['client_id'])){
                                 $s_client_id=$_SESSION['client_id'];
                               }
-                              if(isset($s_admin_id) || (isset($s_admin_id) and $s_client_id==$id)){
+                              if(isset($s_admin_id) || (isset($s_client_id) and $s_client_id==$id)){
                               ?>
+                              
                             <a href="update_client.php?id=<?= $row['id'] ?>">
                               <button type="button" class="btn btn-success btn-block">Paramètres du compte</button>
                             </a>
+                            <br>
                             <?php 
                             }
 
@@ -164,11 +166,15 @@ if (isset($_GET['id'])) {
 
                                 $date_24 = date('Y-m-d', strtotime("-1 day", strtotime($date_fin)));
 
-                                if($date_fin==$date){
+                                if($date_fin < $date){
                                   if(isset($_SESSION['client_id'])){
                                   ?>
+                                  <a href="archiver_abonnement_client.php">
+                              <button type="button" class="btn btn-info btn-block">ABONNEMENT</button>
+                            </a>
+                            <br>
                                   <div class="alert alert-danger" role="alert">
-                                    <strong>Notification</strong>Votre abonnement est terminé
+                                    <strong>Notification</strong> Votre abonnement est terminé le <?= $date_fin ?>
                                   </div>
                                   <?php
                                 }
@@ -178,7 +184,7 @@ if (isset($_GET['id'])) {
                                   if(isset($_SESSION['client_id'])){
                                   ?>
                                   <div class="alert alert-warning" role="alert">
-                                    <strong>Notification</strong>Votre abonnement est terminé dans 24h
+                                    <strong>Notification</strong> Votre abonnement est terminé dans 24h
                                   </div>
                                   <?php
                                 }

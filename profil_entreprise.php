@@ -143,23 +143,27 @@ if (isset($_GET['id'])) {
                             </div>
                             <br>
                             <?php
-                                $q="SELECT * FROM `abonnemententreprise` where entreprise_id='$id' and archived=0";
+                                $q0="SELECT * FROM `abonnemententreprise` where entreprise_id='$id' and archived=0";
                                 //echo $q;exit();
-                                $r=mysqli_query($dbc,$q);
-                                $row=mysqli_fetch_assoc($r);
+                                $r0=mysqli_query($dbc,$q0);
+                                $row0=mysqli_fetch_assoc($r0);
 
                                 $date=date("Y-m-d");
 
-                                if($row){
-                                $date_fin=$row['date_fin'];
+                                if($row0){
+                                $date_fin=$row0['date_fin'];
 
                                 $date_24 = date('Y-m-d', strtotime("-1 day", strtotime($date_fin)));
 
-                                if($date_fin==$date){
+                                if($date_fin < $date){
                                   if(isset($_SESSION['entreprise_id'])){
                                   ?>
+                                  <a href="ajouter_abonnement_entreprise.php">
+                              <button type="button" class="btn btn-info btn-block">ABONNEMENT</button>
+                            </a>
+                            <br>
                                   <div class="alert alert-danger" role="alert">
-                                    <strong>Notification</strong>Votre abonnement est terminé
+                                    <strong>Notification</strong> Votre abonnement est terminé le <?= $date_fin ?>
                                   </div>
                                   <?php
                                 }
@@ -169,7 +173,7 @@ if (isset($_GET['id'])) {
                                   if(isset($_SESSION['entreprise_id'])){
                                   ?>
                                   <div class="alert alert-warning" role="alert">
-                                    <strong>Notification</strong>Votre abonnement va terminé dans 24h
+                                    <strong>Notification</strong> Votre abonnement va terminé dans 24h
                                   </div>
                                   <?php
                                 }
@@ -183,7 +187,7 @@ if (isset($_GET['id'])) {
             </div>
         </div>
         <div class="col-lg-4 order-lg-1">
-            <img src="img/avatar.jpg" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+            <img src="<?= $row['img'] ?>" class="mx-auto img-fluid img-circle d-block" alt="avatar">
             <br><br><br>
         </div>
     </div>

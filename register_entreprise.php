@@ -8,6 +8,7 @@ if(isset($_SESSION['client_id']) || isset($_SESSION['entreprise_id'])){
 
 if (isset($_POST['submit'])) {
 
+  include 'upload_file_e.php';
 
   $type=$_POST['type'];
   $n_serie=$_POST['n_serie'];
@@ -40,7 +41,7 @@ if (isset($_POST['submit'])) {
 
       if(mail($email,"Veuillez vérifier l'e-mail!",$message)){
 
-        $q="INSERT INTO `entreprise`(`type`, `n_serie`,`denomination`,`nom_dirigeant`,`phone`,`siege_social`,`description`,`secteur_act`,`email`, `password`, `token`) VALUES ('$type','$n_serie', '$denomination', '$nom_dirigeant','$phone','$siege_social','$description','$secteur_act','$email', '$password', '$token')";
+        $q="INSERT INTO `entreprise`(`type`, `n_serie`,`denomination`,`nom_dirigeant`,`phone`,`siege_social`,`description`,`secteur_act`,`email`, `password`, `token`, `img`) VALUES ('$type','$n_serie', '$denomination', '$nom_dirigeant','$phone','$siege_social','$description','$secteur_act','$email', '$password', '$token', '$file_name')";
 
         $r=mysqli_query($dbc,$q);
 
@@ -104,7 +105,7 @@ if (isset($_POST['submit'])) {
                 }
                 ?>
               </div>
-              <form class="user" action="register_entreprise.php" method="post">
+              <form class="user" action="register_entreprise.php" method="post" enctype="multipart/form-data">
               <div class="form-group">
                   <label for="sel1">Type d'entreprise </label>
                   <select class="form-control"  id="sel1" name="type" required>
@@ -157,6 +158,10 @@ if (isset($_POST['submit'])) {
                     <input type="password" class="form-control form-control-user" placeholder="Répéter le mot de passe" name="cpassword" required>
                   </div>
                 </div>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Photo de profil</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fileToUpload" required>
+                  </div> 
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-primary" value="Créer un compte">
               </form>
               <hr>

@@ -93,7 +93,7 @@ if ($r) {
               <hr>
 
               <form action="ajouter_abonnement_entreprise.php" method="post" enctype="multipart/form-data">
-              <div class="form-group">
+                  <div class="form-group">
                     <label for="exampleFormControlFile1">Reçu de paiement</label>
                     <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fileToUpload" required>
                   </div> 

@@ -1,3 +1,29 @@
+<?php
+include_once 'connect.php';
+session_start();
+
+// determine which page number visitor is currently on
+if (!isset($_GET['page'])) {
+	$page = 1;
+  } else {
+	$page = $_GET['page'];
+  }
+
+  // define how many results you want per page
+$results_per_page = 8;
+
+// find out the number of results stored in database
+$sql='SELECT * FROM entreprise';
+$result = mysqli_query($dbc, $sql);
+$number_of_results = mysqli_num_rows($result);
+
+// determine number of total pages available
+$number_of_pages = ceil($number_of_results/$results_per_page);
+
+// determine the sql LIMIT starting number for the results on the displaying page
+$this_page_first_result = ($page-1)*$results_per_page;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,30 +31,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <?php
+    include 'css2.html';
+  ?>
     
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/aos.css">
-
-    <link rel="stylesheet" href="css/ionicons.min.css">
-
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	  <!-- <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container-fluid px-md-4	">
 	      <a class="navbar-brand" href="index.html">Skillhunt</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +58,66 @@
 	        </ul>
 	      </div>
 	    </div>
+    </nav> -->
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container-fluid px-md-4	">
+	      <a class="navbar-brand" href="index.php">Traineeship</a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item active"><a href="index.php" class="nav-link">Page d'accueil</a></li>
+	          <li class="nav-item"><a href="offres.php" class="nav-link">Les offres d'emploi</a></li>
+	          <li class="nav-item"><a href="entreprises.php" class="nav-link">Entreprises</a></li>
+	          
+			  <?php
+			  if(isset($_SESSION['admin_id'])){
+				?>
+					<li class="nav-item btn btn-success mr-md-1"><a href="profil_admin.php?id=<?= $_SESSION['admin_id'] ?>" class="nav-link"><?= $_SESSION['admin_firstname']." ".$_SESSION['admin_lastname'] ?></a></li>
+			  <li class="nav-item btn btn-danger"><a href="logout.php" class="nav-link">Se déconnecter</a></li>
+			  
+				<?php }elseif(isset($_SESSION['client_id'])){ ?>
+				
+					<li class="nav-item btn btn-success mr-md-1"><a href="profil_client.php?id=<?= $_SESSION['client_id'] ?>" class="nav-link"><?= $_SESSION['client_firstname']." ".$_SESSION['client_lastname'] ?></a></li>
+			  <li class="nav-item btn btn-danger"><a href="logout.php" class="nav-link">Se déconnecter</a></li>
+			  
+			  <?php }elseif(isset($_SESSION['entreprise_id'])){ ?>
+				<li class="nav-item btn btn-success mr-md-1"><a href="profil_entreprise.php?id=<?= $_SESSION['entreprise_id'] ?>" class="nav-link"><?= $_SESSION['entreprise_denomination'] ?></a></li>
+			  <li class="nav-item btn btn-danger"><a href="logout.php" class="nav-link">Se déconnecter</a></li>
+			  <?php }else{ ?>
+			  
+			  
+			  <li>
+			  <div class="dropdown">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+				Register
+				</button>
+				<div class="dropdown-menu">
+				<a class="dropdown-item" href="register_admin.php">Admin</a>
+				<a class="dropdown-item" href="register_client.php">Client</a>
+				<a class="dropdown-item" href="register_entreprise.php">Entreprise</a>
+				</div>
+			</div>
+			  </li>
+			  <li>.</li>
+			  <li>
+			  <div class="dropdown">
+				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+				Login
+				</button>
+				<div class="dropdown-menu">
+				<a class="dropdown-item" href="login_admin.php">Admin</a>
+				<a class="dropdown-item" href="login_client.php">Client</a>
+				<a class="dropdown-item" href="login_entreprise.php">Entreprise</a>
+				</div>
+			</div>
+			  </li>
+			  <?php } ?>
+	        </ul>
+	      </div>
+	    </div>
 	  </nav>
     <!-- END nav -->
     
@@ -56,8 +126,8 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
           <div class="col-md-12 ftco-animate text-center mb-5">
-          	<p class="breadcrumbs mb-0"><span class="mr-3"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog</span></p>
-            <h1 class="mb-3 bread">Our Blog</h1>
+          	<!-- <p class="breadcrumbs mb-0"><span class="mr-3"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog</span></p> -->
+            <h1 class="mb-3 bread">Entreprises</h1>
           </div>
         </div>
       </div>
@@ -66,130 +136,39 @@
 		<section class="ftco-section">
       <div class="container">
         <div class="row d-flex">
+               <?php
+                  $q3='SELECT * FROM `entreprise` where archived=0 LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
+                  
+								  $r3=mysqli_query($dbc,$q3);
+								  while($row3=mysqli_fetch_assoc($r3)){
+									  
+								?>
           <div class="col-md-3 d-flex ftco-animate">
             <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
+              <a href="profil_entreprise.php?id=<?= $row3['id'] ?>" class="block-20" style="background-image: url('<?= $row3['img'] ?>');">
               </a>
               <div class="text mt-3">
               	<div class="meta mb-2">
-                  <div><a href="#">August 28, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                  <div><?= $row3['phone'] ?></div>
+                  <div><a href="profil_entreprise.php?id=<?= $row3['id'] ?>"><?= $row3['siege_social'] ?></a></div>
+                  <!-- <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div> -->
                 </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+                <h3 class="heading"><a href="profil_entreprise.php.php?id=<?= $row3['id'] ?>"><?= $row3['denomination'] ?></a></h3>
               </div>
             </div>
           </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">August 28, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">August 28, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_4.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">August 28, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_5.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">August 28, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_6.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">August 28, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_7.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">August 28, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_8.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">August 28, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              </div>
-            </div>
-          </div>
+          <?php } ?>
         </div>
         <div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
               <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
+                <!-- <li class="active"><span>1</span></li> -->
+                <?php 
+                  // display the links to the pages
+                for ($page=1;$page<=$number_of_pages;$page++) { ?>
+                <li><a href="offres.php?page=<?= $page ?>"><?= $page ?></a></li>
+                <?php } ?>
               </ul>
             </div>
           </div>
@@ -301,21 +280,9 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
+  <?php
+    include 'xjs.html';
+  ?>
     
   </body>
 </html>

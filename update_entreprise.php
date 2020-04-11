@@ -30,6 +30,8 @@ if (isset($_SESSION['admin_id'])) {
 }
 
       if (isset($_POST['submit'])) {
+        include 'upload_file_e.php';
+
         $type=$_POST['type'];
         $n_serie=$_POST['n_serie'];
         $denomination=$_POST['denomination'];
@@ -39,8 +41,12 @@ if (isset($_SESSION['admin_id'])) {
         $description=$_POST['description'];
         $secteur_act=$_POST['secteur_act'];
         $e_id=$_POST['e_id'];
-    
-            $q="UPDATE `entreprise` SET `type`='$type',`n_serie`='$n_serie',`denomination`='$denomination',`nom_dirigeant`='$nom_dirigeant',`siege_social`='$siege_social',`phone`='$phone', `description`='$description',`secteur_act`='$secteur_act' WHERE id='$e_id'";
+
+        if(isset($file_name)){
+            $q="UPDATE `entreprise` SET `type`='$type',`n_serie`='$n_serie',`denomination`='$denomination',`nom_dirigeant`='$nom_dirigeant',`siege_social`='$siege_social',`phone`='$phone', `description`='$description',`secteur_act`='$secteur_act',`img`='$file_name' WHERE id='$e_id'";
+        }else{
+          $q="UPDATE `entreprise` SET `type`='$type',`n_serie`='$n_serie',`denomination`='$denomination',`nom_dirigeant`='$nom_dirigeant',`siege_social`='$siege_social',`phone`='$phone', `description`='$description',`secteur_act`='$secteur_act' WHERE id='$e_id'";
+        }
     
             $r=mysqli_query($dbc,$q);
     
@@ -99,7 +105,7 @@ if (isset($_SESSION['admin_id'])) {
               $rs=mysqli_query($dbc,$qs);
               $rows=mysqli_fetch_assoc($rs);
               ?>
-              <form class="user" action="update_entreprise.php?id=<?= $id ?>" method="post">
+              <form class="user" action="update_entreprise.php?id=<?= $id ?>" method="post" enctype="multipart/form-data">
               <div class="form-group">
                   <label for="sel1">Type d'entreprise </label>
                   <select class="form-control"  id="sel1" name="type" required>
@@ -138,7 +144,11 @@ if (isset($_SESSION['admin_id'])) {
                     <label>Secteur d'activité</label>
                     <input type="text" class="form-control form-control-user" value="<?= $rows['secteur_act'] ?>" name="secteur_act" required>
                   </div>
-
+                  <img src="<?= $rows['img'] ?>" class="mx-auto d-block img-thumbnail" width="50%">
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Photo de profil</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fileToUpload">
+                  </div> 
                 <input type="hidden" name="e_id" value="<?= $id ?>">
                 <input type="submit" name="submit" class="btn btn-user btn-block btn-success" value="Modifier">
               </form>

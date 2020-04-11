@@ -43,8 +43,8 @@ session_start();
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="index.php" class="nav-link">Page d'accueil</a></li>
-	          <li class="nav-item"><a href="offres.php" class="nav-link">les offres d'emploi</a></li>
-	          <li class="nav-item"><a href="candidates.php" class="nav-link">Canditates</a></li>
+	          <li class="nav-item"><a href="offres.php" class="nav-link">Les offres d'emploi</a></li>
+	          <li class="nav-item"><a href="entreprises.php" class="nav-link">Entreprises</a></li>
 	          
 			  <?php
 			  if(isset($_SESSION['admin_id'])){
@@ -406,14 +406,14 @@ session_start();
 						<div class="row">
 						<!-- ---------- -->
 								<?php
-								  $q3="SELECT * FROM `offre` where archived=0 limit 4";
+								  $q3="SELECT * FROM `offre` where archived=0 limit 8";
 								  $r3=mysqli_query($dbc,$q3);
 								  while($row3=mysqli_fetch_assoc($r3)){
 									  $e_id=$row3['id_entreprise'];
 
 									$q="SELECT * FROM `entreprise` where id='$e_id'";
 									$r=mysqli_query($dbc,$q);
-									$row=mysqli_fetch_assoc($r)
+									$row=mysqli_fetch_assoc($r);
 								?>
 							<div class="col-md-12 ftco-animate">
 		            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
@@ -456,18 +456,25 @@ session_start();
 		      <div class="col-lg-3 sidebar">
 		        <div class="row justify-content-center pb-3">
 		          <div class="col-md-12 heading-section ftco-animate">
-		            <h2 class="mb-4">Top Recrutements</h2>
+		            <h2 class="mb-4">Entreprises</h2>
 		          </div>
-		        </div>
+				</div>
+				<?php
+				$q="SELECT * FROM `entreprise` where isEmailConfirmed=1 and archived=0 ORDER BY id DESC limit 4";
+				$r=mysqli_query($dbc,$q);
+				while($row=mysqli_fetch_assoc($r)){
+				?>
+
 		        <div class="sidebar-box ftco-animate">
 		        	<div class="">
-			        	<a href="#" class="company-wrap"><img src="images/company-1.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
+			        	<a href="profil_entreprise.php?id=<?= $row['id'] ?>" class="company-wrap"><img src="<?= $row['img'] ?>" class="img-fluid" alt="Colorlib Free Template"></a>
 			        	<div class="text p-3">
-			        		<h3><a href="#">Company Company</a></h3>
-			        		<p><span class="number">500</span> <span>Offre</span></p>
+			        		<h3><a href="profil_entreprise.php?id=<?= $row['id'] ?>"><?php $row['denomination']?></a></h3>
+			        		<!-- <p><span class="number">500</span> <span>Offres</span></p> -->
 			        	</div>
 		        	</div>
-		        </div>
+				</div>
+				<?php } ?>
 		      </div>
 				</div>
 			</div>
