@@ -192,6 +192,58 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <hr>
+    <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold">Les offres de stages de cette entreprise</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>N°</th>
+                      <th>Titre</th>             
+                      <th>Nombre de places</th>
+                      <th>Nature de l'offre</th>
+                      <th>Detail offre</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $q="SELECT * FROM `offre`where id_entreprise= '$id' ";
+                    $r=mysqli_query($dbc,$q);
+                    while ($row=mysqli_fetch_assoc($r)) {
+                    ?>
+                    <tr>
+                      <td><?= $row['id'] ?></td>
+                
+                      <td><?= $row['title']?></td>
+
+                      <td><?= $row['n_places'] ?></td>
+                      <td><?= $row['nature_offre'] ?></td>
+                      
+                      <td>
+                      <a href="dt_off.php?id=<?= $row['id'] ?>">
+                          <button type="button" class="btn btn-primary">Details</button>
+                        </a> 
+                      </td>
+                      
+                    </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+   
         <!-- /.container-fluid -->
 
       </div>
