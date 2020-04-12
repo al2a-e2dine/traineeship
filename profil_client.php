@@ -208,6 +208,119 @@ if (isset($_GET['id'])) {
         <!-- /.container-fluid -->
 
       </div>
+      <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>N°</th>
+                     
+                      <th>Offre</th>
+                      <th>Date</th>
+                      <th>CV</th>
+                      <th>Lettre de motivation</th>
+                      <th>Etat de demande</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php
+                  if (isset($_GET['id'])) {
+                    $id=$_GET['id'];
+                    $q="SELECT * FROM `demandeoffre`where client_id='$id'";
+                    $r=mysqli_query($dbc,$q);
+                  }
+                    while ($row=mysqli_fetch_assoc($r)) {
+                    ?>
+                    <tr>
+                      <td><?= $row['id'] ?></td>
+                      
+                      <?php
+                      $off_id=$row['offre_id'];
+                      $q2="SELECT * FROM `offre` where id='$off_id'";
+                      $r2=mysqli_query($dbc,$q2);
+                      $row2=mysqli_fetch_assoc($r2);
+                      ?>
+                      <td><?= $row2['title'] ?></td>
+                      <td><?= $row['Date'] ?></td>
+                      
+                      <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cv<?= $row['id'] ?>">CV</button>
+
+                        <!-- Logout Modal-->
+                            <div class="modal fade" id="cv<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">fichier de cv</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                  </div>
+                                  <a href="<?= $row['cv'] ?>" download>
+                                  <div class="modal-body">Telecharger le fichier </div>
+                                  <div class="modal-footer">
+                                  </a>
+                                  <div class="modal-body"><object data="<?= $row['cv'] ?>" class="mx-auto d-block img-thumbnail" ></object></div>
+                                 
+                                </div>
+                              </div>
+                            </div>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lettre<?= $row['id'] ?>">Lettre de motivation</button>
+
+                        <!-- Logout Modal-->
+                            <div class="modal fade" id="lettre<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Lettre de motivation</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                  </div>
+                                  <a href="<?= $row['lettre'] ?>" download>
+                                  <div class="modal-body">Telecharger le fichier </div>
+                                  <div class="modal-footer">
+                                  </a>
+                                  <div class="modal-body"><object data="<?= $row['lettre'] ?>" class="mx-auto d-block img-thumbnail" ></object></div>
+                                
+                                </div>
+                              </div>
+                            </div>
+                      </td>
+                      <?php
+                      
+                       if($row['accept']==0){
+
+                      ?>
+                      <td>Pas de reponse</td>
+                      <?php
+                       }
+                       elseif($row['accept']==1){
+                      ?>
+                      <td>accepter</td>
+                      <?php
+                       }
+                       elseif($row['accept']==2){
+                      ?>
+                       <td>refuser</td>
+                       <?php
+                       }
+                      ?>
+
+
+                      
+                      
+                    </tr>
+                    <?php
+                    }
+                    
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
       <!-- End of Main Content -->
 
       

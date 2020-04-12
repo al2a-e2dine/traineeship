@@ -22,8 +22,8 @@ if (!isset($_SESSION['admin_id'])) {
   }
   /*$date_d=date("Y-m-d");
   $date_f = date('Y-m-d',strtotime(date("Y-m-d", mktime()) . " + 365 day"));*/
-  $q="UPDATE `demandeoffre` SET `accept`='3' WHERE `id`='$id'";
+  $q="UPDATE `demandeoffre` SET `archiver`='1' WHERE `id`='$id'";
 	$r=mysqli_query($dbc,$q);
-	header('location:gestion_demande_offre.php?true');
+	header('location:demande_offre_accepter.php?true');
 	
 ?>  

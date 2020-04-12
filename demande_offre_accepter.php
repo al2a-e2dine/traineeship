@@ -97,7 +97,7 @@ if (!isset($_SESSION['admin_id'])) {
                   </thead>
                   <tbody>
                   <?php
-                    $q="SELECT * FROM `demandeoffre`where accept=1 ";
+                    $q="SELECT * FROM `demandeoffre`where accept=1 and archiver=0 ";
                     $r=mysqli_query($dbc,$q);
                     while ($row=mysqli_fetch_assoc($r)) {
                     ?>
