@@ -4,15 +4,15 @@ session_start();
 
 if(isset($_GET['id'])){
   $off_id=$_GET['id'];
-}else{
+}/*else{
   header('location:index.php');
-}
+}*/
 
-if(isset($_SESSION['client_id'])){
+/*if(isset($_SESSION['client_id'])){*/
   $c_id=$_SESSION['client_id'];
-}else{
+/*}else{
   header('location:index.php');
-}
+}*/
 
 
 if (isset($_POST['submit'])) {
@@ -26,9 +26,9 @@ if (isset($_POST['submit'])) {
     
   
   if ($r) {
-    $msg= "abonnement ajoutée";
+    $msg= "Offre demandé";
   }else{
-    $msg= "abonnement non ajoutée";
+    $msg= "Offre non demandé";
   }
   
   }
