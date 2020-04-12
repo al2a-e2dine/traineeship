@@ -111,7 +111,14 @@ if (!isset($_SESSION['admin_id'])) {
                       ?>
                       <td><?= $row1['firstname']." ".$row1['lastname'] ?></td>
 
-                      <td><?= $row['Date'] ?></td>
+                      <?php
+                      $off_id=$row['offre_id'];
+                      $q2="SELECT * FROM `offre` where id='$off_id'";
+                      $r2=mysqli_query($dbc,$q2);
+                      $row2=mysqli_fetch_assoc($r2);
+                      ?>
+                      <td><?= $row2['title'] ?></td> 
+
                       
                       <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cv<?= $row['id'] ?>">CV</button>
