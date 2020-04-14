@@ -27,7 +27,7 @@ $this_page_first_result = ($page-1)*$results_per_page;
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Skillhunt - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Entreprises</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -135,7 +135,7 @@ $this_page_first_result = ($page-1)*$results_per_page;
 
 		<section class="ftco-section">
       <div class="container">
-        <div class="row d-flex">
+      <div class="row">
                <?php
                   $q3='SELECT * FROM `entreprise` where archived=0 LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
                   
@@ -143,20 +143,12 @@ $this_page_first_result = ($page-1)*$results_per_page;
 								  while($row3=mysqli_fetch_assoc($r3)){
 									  
 								?>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="profil_entreprise.php?id=<?= $row3['id'] ?>" class="block-20" style="background-image: url('<?= $row3['img'] ?>');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><?= $row3['phone'] ?></div>
-                  <div><a href="profil_entreprise.php?id=<?= $row3['id'] ?>"><?= $row3['siege_social'] ?></a></div>
-                  <!-- <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div> -->
+                <div class="col-md-3">
+                  <a href="profil_entreprise.php?id=<?= $row3['id'] ?>">
+                    <img src="<?= $row3['img'] ?>" class="img-fluid img-thumbnail">
+                    <h5 class="text-center"><?= $row3['denomination'] ?></h5>
+                  </a>
                 </div>
-                <h3 class="heading"><a href="profil_entreprise.php.php?id=<?= $row3['id'] ?>"><?= $row3['denomination'] ?></a></h3>
-              </div>
-            </div>
-          </div>
           <?php } ?>
         </div>
         <div class="row mt-5">
@@ -199,80 +191,9 @@ $this_page_first_result = ($page-1)*$results_per_page;
       </div>
     </section>
 
-    <footer class="ftco-footer ftco-bg-dark ftco-section">
-      <div class="container">
-        <div class="row mb-5">
-        	<div class="col-md">
-             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Skillhunt Jobboard</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Employers</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="pb-1 d-block">Browse Candidates</a></li>
-                <li><a href="#" class="pb-1 d-block">Post a Job</a></li>
-                <li><a href="#" class="pb-1 d-block">Employer Listing</a></li>
-                <li><a href="#" class="pb-1 d-block">Resume Page</a></li>
-                <li><a href="#" class="pb-1 d-block">Dashboard</a></li>
-                <li><a href="#" class="pb-1 d-block">Job Packages</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Candidate</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="pb-1 d-block">Browse Jobs</a></li>
-                <li><a href="#" class="pb-1 d-block">Submit Resume</a></li>
-                <li><a href="#" class="pb-1 d-block">Dashboard</a></li>
-                <li><a href="#" class="pb-1 d-block">Browse Categories</a></li>
-                <li><a href="#" class="pb-1 d-block">My Bookmarks</a></li>
-                <li><a href="#" class="pb-1 d-block">Candidate Listing</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Account</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="pb-1 d-block">My Account</a></li>
-                <li><a href="#" class="pb-1 d-block">Sign In</a></li>
-                <li><a href="#" class="pb-1 d-block">Create Account</a></li>
-                <li><a href="#" class="pb-1 d-block">Checkout</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
-	              </ul>
-	            </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
-
-            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <?php
+    include 'footer_index.html';
+  ?>
     
   
 

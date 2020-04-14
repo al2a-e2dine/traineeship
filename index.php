@@ -161,7 +161,6 @@ session_start();
 				          </div>
 				        </div>
 					</div>
-					
 							<!-- <div class="ftco-search my-md-5">
 								<div class="row">
 			            <div class="col-md-12 nav-link-wrap">
@@ -392,9 +391,21 @@ session_start();
         </div>
       </div>
     </section> -->
-
+				
 		<section class="ftco-section bg-light">
+		
 			<div class="container">
+				<?php
+				$qv="SELECT * FROM `video`";
+				$rv=mysqli_query($dbc,$qv);
+				$rowv=mysqli_fetch_assoc($rv);
+				$url=$rowv['url'];
+				$new_url = str_replace('watch?v=', 'embed/', $url);
+				?>
+			<div class="embed-responsive embed-responsive-16by9">
+			<iframe class="embed-responsive-item" src="<?= $new_url ?>" allowfullscreen></iframe>
+			</div><br>
+
 				<div class="row">
 					<div class="col-lg-9 pr-lg-5">
 						<div class="row justify-content-center pb-3">
@@ -424,7 +435,7 @@ session_start();
 							  <?php
 							  if(!isset($_SESSION['admin_id']) and !isset($_SESSION['client_id']) and !isset($_SESSION['entreprise_id'])){
 							  ?>
-						  <a href=""><?= $row3['title'] ?></a>
+						  <a href="login_client.php"><?= $row3['title'] ?></a>
 								  <?php }else{ ?>
 								  <a href="dt_off.php?id=<?= $row3['id'] ?>"><?= $row3['title'] ?></a>
 								  <?php } ?>
@@ -441,7 +452,7 @@ session_start();
 						<?php
 							  if(!isset($_SESSION['admin_id']) and !isset($_SESSION['client_id']) and !isset($_SESSION['entreprise_id'])){
 							  ?>
-						  <a href="#" class="btn btn-primary py-2">Postuler</a>
+						  <a href="login_client.php" class="btn btn-primary py-2">Postuler</a>
 								  <?php }else{ ?>
 									<a href="dmd_off.php?off_id=<?= $row3['id'] ?>" class="btn btn-primary py-2">Postuler</a>
 								  <?php } ?>
@@ -463,15 +474,25 @@ session_start();
 				$q="SELECT * FROM `entreprise` where isEmailConfirmed=1 and archived=0 ORDER BY id DESC limit 4";
 				$r=mysqli_query($dbc,$q);
 				while($row=mysqli_fetch_assoc($r)){
+					//echo $row['denomination'];exit();
 				?>
-
+				
 		        <div class="sidebar-box ftco-animate">
 		        	<div class="">
-			        	<a href="profil_entreprise.php?id=<?= $row['id'] ?>" class="company-wrap"><img src="<?= $row['img'] ?>" class="img-fluid" alt="Colorlib Free Template"></a>
-			        	<div class="text p-3">
-			        		<h3><a href="profil_entreprise.php?id=<?= $row['id'] ?>"><h3><?php $row['denomination']?></h3></a>
-			        		<!-- <p><span class="number">500</span> <span>Offres</span></p> -->
-			        	</div>
+			        	<a href="profil_entreprise.php?id=<?= $row['id'] ?>" class="company-wrap">
+							<img src="<?= $row['img'] ?>" class="img-fluid" alt="Colorlib Free Template">
+						</a>
+						<h5 class="text-center">
+						<a href="profil_entreprise.php?id=<?= $row['id'] ?>">
+							<?= $row['denomination']?>
+						</a>
+						</h5>
+			        	<!-- <div class="text p-3">
+							<p>
+								<span><?php $row['denomination']?></span>
+								<span><?php $row['denomination']?></span>
+							</p>
+						</div> -->
 		        	</div>
 				</div>
 				<?php } ?>
@@ -493,76 +514,28 @@ session_start();
         <div class="row ftco-animate">
           <div class="col-md-12">
             <div class="carousel-testimony owl-carousel ftco-owl">
+				<?php
+				$qfb="SELECT * FROM `feedback` where archived=0";
+				$rfb=mysqli_query($dbc,$qfb);
+				$num=mysqli_num_rows($rfb);
+				//echo "<h1>".$num."</h1>";exit();
+				while($rowfb=mysqli_fetch_assoc($rfb)){
+				?>
               <div class="item">
                 <div class="testimony-wrap py-4">
                   <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p class="mb-4"><?= $rowfb['feedback'] ?></p>
                     <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+                    	<div class="user-img" style="background-image: url(<?= $rowfb['img'] ?>)"></div>
                     	<div class="pl-3">
-		                    <p class="name">Roger Scott</p>
-		                    <span class="position">Marketing Manager</span>
+		                    <p class="name"><?= $rowfb['fullname'] ?></p>
+		                    <span class="position"><?= $rowfb['job'] ?></span>
 		                  </div>
 	                  </div>
                   </div>
                 </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap py-4">
-                  <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-                    	<div class="pl-3">
-		                    <p class="name">Roger Scott</p>
-		                    <span class="position">Marketing Manager</span>
-		                  </div>
-	                  </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap py-4">
-                  <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-                    	<div class="pl-3">
-		                    <p class="name">Roger Scott</p>
-		                    <span class="position">Marketing Manager</span>
-		                  </div>
-	                  </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap py-4">
-                  <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-                    	<div class="pl-3">
-		                    <p class="name">Roger Scott</p>
-		                    <span class="position">Marketing Manager</span>
-		                  </div>
-	                  </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap py-4">
-                  <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-                    	<div class="pl-3">
-		                    <p class="name">Roger Scott</p>
-		                    <span class="position">Marketing Manager</span>
-		                  </div>
-	                  </div>
-                  </div>
-                </div>
-              </div>
+			  </div>
+				<?php } ?>
             </div>
           </div>
         </div>
@@ -584,44 +557,65 @@ session_start();
         		<div class="carousel-candidates owl-carousel">
         			<div class="item">
 		        		<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_1.jpg);"></div>
-		        			<h2>Danica Lewis</h2>
-		        			<span class="position">Western City, UK</span>
+		        			<div class="img" style="background-image: url(images/1.jpeg);"></div>
+		        			<h2>Mohammed EL Mehdi BELKEDAR</h2>
+		        			<span class="position">Étudiant en sciences pour l'ingénieur à Aix Marseille université</span>
 		        		</a>
         			</div>
         			<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_2.jpg);"></div>
-		        			<h2>Nicole Simon</h2>
-		        			<span class="position">Western City, UK</span>
+		        			<div class="img" style="background-image: url(images/2.jpg);"></div>
+		        			<h2>Malab Jallil</h2>
+		        			<span class="position">étudiant en 2ème année lycée</span>
 		        		</a>
 	        		</div>
 	        		<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_3.jpg);"></div>
-		        			<h2>Cloe Meyer</h2>
-		        			<span class="position">Western City, UK</span>
+		        			<div class="img" style="background-image: url(images/3.jpg);"></div>
+		        			<h2>Senad Hiba</h2>
+		        			<span class="position">étudiante 1 ere année cycle ingénieur système embarqué</span>
 		        		</a>
 	        		</div>
 	        		<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_4.jpg);"></div>
-		        			<h2>Rachel Clinton</h2>
-		        			<span class="position">Western City, UK</span>
+		        			<div class="img" style="background-image: url(images/4.jpg);"></div>
+		        			<h2>Kaouz Nour</h2>
+		        			<span class="position">étudiante 1 ere année cycle ingénieur système</span>
 		        		</a>
 	        		</div>
 	        		<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_5.jpg);"></div>
-		        			<h2>Dave Buff</h2>
-		        			<span class="position">Western City, UK</span>
+		        			<div class="img" style="background-image: url(images/5.jpg);"></div>
+		        			<h2>Afounas Lylia</h2>
+		        			<span class="position">étudiante en 2ème année cycle ingénieur analyse des matériaux</span>
 		        		</a>
 	        		</div>
 	        		<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_6.jpg);"></div>
-		        			<h2>Dave Buff</h2>
-		        			<span class="position">Western City, UK</span>
+		        			<div class="img" style="background-image: url(images/6.jpg);"></div>
+		        			<h2>Belgacemi Sofiane</h2>
+		        			<span class="position">étudiant en master 1 audit et contrôle de gestion</span>
+		        		</a>
+	        		</div>
+					<div class="item">
+	        			<a href="#" class="team text-center">
+		        			<div class="img" style="background-image: url(images/7.jpg);"></div>
+		        			<h2>Laouar Imene</h2>
+		        			<span class="position">1ère année cycle ingénieur électronique</span>
+		        		</a>
+	        		</div>
+					<div class="item">
+	        			<a href="#" class="team text-center">
+		        			<div class="img" style="background-image: url(images/8.jpg);"></div>
+		        			<h2>KADOUR CHIKH Faiza</h2>
+		        			<span class="position">étudiante en master 1 langue allemande</span>
+		        		</a>
+	        		</div>
+					<div class="item">
+	        			<a href="#" class="team text-center">
+		        			<div class="img" style="background-image: url(images/9.jpg);"></div>
+		        			<h2>Adib Mehdi</h2>
+		        			<span class="position">étudiant en ère année cycle ingénieur maintenance industriel</span>
 		        		</a>
 	        		</div>
         		</div>
@@ -722,79 +716,11 @@ session_start();
       </div>
     </section> -->
 
-    <footer class="ftco-footer ftco-bg-dark ftco-section">
-      <div class="container">
-        <div class="row mb-5">
-        	<div class="col-md">
-             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Traineeship</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Employers</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="pb-1 d-block">Browse Candidates</a></li>
-                <li><a href="#" class="pb-1 d-block">Post a Job</a></li>
-                <li><a href="#" class="pb-1 d-block">Employer Listing</a></li>
-                <li><a href="#" class="pb-1 d-block">Resume Page</a></li>
-                <li><a href="#" class="pb-1 d-block">Dashboard</a></li>
-                <li><a href="#" class="pb-1 d-block">Job Packages</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Candidate</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="pb-1 d-block">Browse Jobs</a></li>
-                <li><a href="#" class="pb-1 d-block">Submit Resume</a></li>
-                <li><a href="#" class="pb-1 d-block">Dashboard</a></li>
-                <li><a href="#" class="pb-1 d-block">Browse Categories</a></li>
-                <li><a href="#" class="pb-1 d-block">My Bookmarks</a></li>
-                <li><a href="#" class="pb-1 d-block">Candidate Listing</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Account</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="pb-1 d-block">My Account</a></li>
-                <li><a href="#" class="pb-1 d-block">Sign In</a></li>
-                <li><a href="#" class="pb-1 d-block">Create Account</a></li>
-                <li><a href="#" class="pb-1 d-block">Checkout</a></li>
-              </ul>
-            </div>
-          </div> -->
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
-	              </ul>
-	            </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
+    
 
-            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+	<?php
+    include 'footer_index.html';
+  ?>
     
   
 

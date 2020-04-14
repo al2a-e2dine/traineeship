@@ -5,7 +5,7 @@ session_start();
 
 if(isset($_SESSION['admin_id']) || isset($_SESSION['client_id']) || isset($_SESSION['entreprise_id'])){
 }else{
-  header('location:index.php');
+  header('location:login_client.php');
 }
 
 if (isset($_GET['id'])) {

@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
 }
 
 }else{
-  header('location:index.php');
+  header('location:login_client.php');
 }
 
 // if (isset($_SESSION['admin_id'])) {
